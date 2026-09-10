@@ -380,355 +380,359 @@
   <footer>
     <p>&copy; 2026 GAME HUB. All rights reserved.</p>
   </footer>
+<script>
+  const categoryMap = {
+    freeboard: { name: '자유', class: 'freeboard' },
+    guide: { name: '공략&팁', class: 'guide' },
+    qna: { name: '질문', class: 'qna' },
+    recommend: { name: '추천', class: 'recommend' },
+    party: { name: '파티모집', class: 'party' }
+  };
 
-  <script>
-    const categoryMap = {
-      freeboard: { name: '자유', class: 'freeboard' },
-      guide: { name: '공략&팁', class: 'guide' },
-      qna: { name: '질문', class: 'qna' },
-      recommend: { name: '추천', class: 'recommend' },
-      party: { name: '파티모집', class: 'party' }
-    };
+  let uploadedImages = [];
 
-    let uploadedImages = [];
+  let posts = [
+    { id: 1, category: 'guide', title: '[공략] 초보자를 위한 초반 필수 설정 및 꿀팁 정리', author: '공략왕', date: '2026-09-10', views: 128, content: '게임 초반 옵션 설정과 효율적인 자원 관리 팁을 정리했습니다.', videoUrl: 'https://www.youtube.com/watch?v=jQdFe0Wiugw', images: [] },
+    { id: 2, category: 'qna', title: '이 사양으로 신작 그래픽 풀옵션 구동 가능한가요?', author: '컴알못', date: '2026-09-10', views: 35, content: 'RTX 4070 사용 중인데 FHD 환경에서 60프레임 방어 되는지 궁금합니다.', videoUrl: '', images: [] },
+    { id: 3, category: 'recommend', title: '주말에 가볍게 즐기기 좋은 힐링 인디게임 3선', author: '인디러버', date: '2026-09-09', views: 89, content: '부담 없이 스토리에 몰입할 수 있는 명작 인디게임들을 추천합니다.', videoUrl: '', images: [] },
+    { id: 4, category: 'party', title: '발로란트 경쟁전 같이 달릴 분 구합니다 (3/5)', author: 'FPS마스터', date: '2026-09-09', views: 54, content: '마이크 필수, 즐겜 유저 분들 편하게 신청해 주세요!', videoUrl: '', images: [] }
+  ];
 
-    let posts = [
-      { id: 1, category: 'guide', title: '[공략] 초보자를 위한 초반 필수 설정 및 꿀팁 정리', author: '공략왕', date: '2026-09-10', views: 128, content: '게임 초반 옵션 설정과 효율적인 자원 관리 팁을 정리했습니다.', videoUrl: 'https://www.youtube.com/watch?v=jQdFe0Wiugw', images: [] },
-      { id: 2, category: 'qna', title: '이 사양으로 신작 그래픽 풀옵션 구동 가능한가요?', author: '컴알못', date: '2026-09-10', views: 35, content: 'RTX 4070 사용 중인데 FHD 환경에서 60프레임 방어 되는지 궁금합니다.', videoUrl: '', images: [] },
-      { id: 3, category: 'recommend', title: '주말에 가볍게 즐기기 좋은 힐링 인디게임 3선', author: '인디러버', date: '2026-09-09', views: 89, content: '부담 없이 스토리에 몰입할 수 있는 명작 인디게임들을 추천합니다.', videoUrl: '', images: [] },
-      { id: 4, category: 'party', title: '발로란트 경쟁전 같이 달릴 분 구합니다 (3/5)', author: 'FPS마스터', date: '2026-09-09', views: 54, content: '마이크 필수, 즐겜 유저 분들 편하게 신청해 주세요!', videoUrl: '', images: [] }
-    ];
+  const upcomingGames = [
+    {
+      id: 1,
+      title: '몬스터 헌터 와일즈',
+      desc: '캡콤의 차세대 몬스터 헌터 시리즈. 새로운 생태계와 역동적인 수냥 액션.',
+      date: '2026-09-15',
+      platforms: ['PC', 'PS5', 'Xbox'],
+      poster: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop',
+      videoUrl: 'https://www.youtube.com/watch?v=jQdFe0Wiugw'
+    },
+    {
+      id: 2,
+      title: '더 블러드 오브 던워커',
+      desc: '14세기 유럽 배경 다크 판타지 오픈월드 RPG. 낮과 밤에 따라 능력이 변하는 뱀파이어 액션.',
+      date: '2026-09-20',
+      platforms: ['PC', 'PS5', 'Xbox'],
+      poster: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600&auto=format&fit=crop',
+      videoUrl: 'https://www.youtube.com/watch?v=lkC75FzExf0'
+    },
+    {
+      id: 3,
+      title: '마블 울버린 (Marvel\'s Wolverine)',
+      desc: '인섬니악 게임즈가 제작하는 PS5 독점 신작. 울버린의 본능적인 클로 액션 어드벤처.',
+      date: '2026-09-28',
+      platforms: ['PS5'],
+      poster: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600&auto=format&fit=crop',
+      videoUrl: 'https://www.youtube.com/watch?v=gX461wBRQVs'
+    },
+    {
+      id: 4,
+      title: 'Grand Theft Auto VI (GTA 6)',
+      desc: '락스타 게임즈가 선보이는 역대 최대 규모 오픈월드 차기작. 바이스 시티 기반 신작.',
+      date: '2026-11-19',
+      platforms: ['PS5', 'Xbox'],
+      poster: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop',
+      videoUrl: 'https://www.youtube.com/watch?v=XAgXfddQSwY'
+    }
+  ];
 
-    const upcomingGames = [
-      {
-        id: 1,
-        title: '몬스터 헌터 와일즈',
-        desc: '캡콤의 차세대 몬스터 헌터 시리즈. 새로운 생태계와 역동적인 수냥 액션.',
-        date: '2026-09-15',
-        platforms: ['PC', 'PS5', 'Xbox'],
-        poster: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=jQdFe0Wiugw'
-      },
-      {
-        id: 2,
-        title: '더 블러드 오브 던워커',
-        desc: '14세기 유럽 배경 다크 판타지 오픈월드 RPG. 낮과 밤에 따라 능력이 변하는 뱀파이어 액션.',
-        date: '2026-09-20',
-        platforms: ['PC', 'PS5', 'Xbox'],
-        poster: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=lkC75FzExf0'
-      },
-      {
-        id: 3,
-        title: '마블 울버린 (Marvel\'s Wolverine)',
-        desc: '인섬니악 게임즈가 제작하는 PS5 독점 신작. 울버린의 본능적인 클로 액션 어드벤처.',
-        date: '2026-09-28',
-        platforms: ['PS5'],
-        poster: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=gX461wBRQVs'
-      },
-      {
-        id: 4,
-        title: 'Grand Theft Auto VI (GTA 6)',
-        desc: '락스타 게임즈가 선보이는 역대 최대 규모 오픈월드 차기작. 바이스 시티 기반 신작.',
-        date: '2026-11-19',
-        platforms: ['PS5', 'Xbox'],
-        poster: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=XAgXfddQSwY'
-      }
-    ];
+  let currentFilter = 'all';
+  let currentPlatform = 'all';
 
-    let currentFilter = 'all';
-    let currentPlatform = 'all';
+  function navigateTo(pageId, subTarget = null) {
+    let hash = pageId;
+    if (subTarget) hash += '/' + subTarget;
+    window.location.hash = hash;
+  }
 
-    function navigateTo(pageId, subTarget = null) {
-      let hash = pageId;
-      if (subTarget) hash += '/' + subTarget;
-      window.location.hash = hash;
+  /* URL 상태 감지 및 라우팅 (수정됨) */
+  function handleRouting() {
+    const hash = window.location.hash.replace('#', '') || 'home';
+    const parts = hash.split('/');
+    const pageId = parts[0];
+    const subTarget = parts[1] || null;
+
+    document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+    const targetPage = document.getElementById('page-' + pageId);
+    
+    if (targetPage) {
+      targetPage.classList.add('active');
+    } else {
+      document.getElementById('page-home').classList.add('active');
     }
 
-    /* URL 상태 감지 및 라우팅 */
-    function handleRouting() {
-      const hash = window.location.hash.replace('#', '') || 'home';
-      const parts = hash.split('/');
-      const pageId = parts[0];
-      const subTarget = parts[1] || null;
-
-      document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
-      const targetPage = document.getElementById('page-' + pageId);
-      
-      if (targetPage) {
-        targetPage.classList.add('active');
-      } else {
-        document.getElementById('page-home').classList.add('active');
-      }
-
-      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-      
-      if (pageId.startsWith('community')) {
-        const activeNav = document.getElementById('nav-community');
-        if (activeNav) activeNav.classList.add('active');
-      } else {
-        const activeNav = document.getElementById('nav-' + pageId);
-        if (activeNav) activeNav.classList.add('active');
-      }
-
-      // 페이지별 서브 카테고리 로직
-      if (pageId === 'community') {
-        const targetTab = subTarget || 'all';
-        const btn = document.getElementById('tab-' + targetTab);
-        filterBoard(targetTab, btn);
-      } else if (pageId === 'upcoming') {
-        renderUpcoming();
-      }
-
-      window.scrollTo(0, 0);
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    
+    if (pageId.startsWith('community')) {
+      const activeNav = document.getElementById('nav-community');
+      if (activeNav) activeNav.classList.add('active');
+    } else {
+      const activeNav = document.getElementById('nav-' + pageId);
+      if (activeNav) activeNav.classList.add('active');
     }
 
-    window.addEventListener('hashchange', handleRouting);
-    window.addEventListener('DOMContentLoaded', handleRouting);
-
-    function getYoutubeEmbedUrl(url) {
-      if (!url) return null;
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-      const match = url.match(regExp);
-      return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : null;
-    }
-
-    function handleImagePreview(event) {
-      const files = event.target.files;
-      const container = document.getElementById('imagePreviewContainer');
-      container.innerHTML = '';
-      uploadedImages = [];
-
-      Array.from(files).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          uploadedImages.push(e.target.result);
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          img.className = 'img-preview-item';
-          container.appendChild(img);
-        }
-        reader.readAsDataURL(file);
-      });
-    }
-
-    function renderBoard() {
-      const listContainer = document.getElementById('boardList');
-      if (!listContainer) return;
-      listContainer.innerHTML = '';
-
-      const filteredPosts = posts.filter(post => currentFilter === 'all' || post.category === currentFilter);
-
-      if (filteredPosts.length === 0) {
-        listContainer.innerHTML = `<tr><td colspan="5" style="text-align:center; color: var(--text-sub); padding: 2rem;">등록된 게시글이 없습니다.</td></tr>`;
-        return;
-      }
-
-      filteredPosts.forEach(post => {
-        const catInfo = categoryMap[post.category] || { name: '기타', class: '' };
-        let mediaIcon = '';
-        if (post.images && post.images.length > 0) mediaIcon += ' 🖼️';
-        if (post.videoUrl) mediaIcon += ' 🎬';
-
-        const tr = document.createElement('tr');
-        tr.onclick = () => openDetailModal(post.id);
-        tr.innerHTML = `
-          <td><span class="cat-badge ${catInfo.class}">${catInfo.name}</span></td>
-          <td style="font-weight: 600;">${post.title} <span style="font-size: 0.8rem;">${mediaIcon}</span></td>
-          <td class="col-author">${post.author}</td>
-          <td class="col-date">${post.date}</td>
-          <td class="col-views">${post.views}</td>
-        `;
-        listContainer.appendChild(tr);
-      });
-    }
-
-    function filterBoard(cat, btnElement = null) {
-      currentFilter = cat;
-      document.querySelectorAll('#page-community .tab-btn').forEach(btn => btn.classList.remove('active'));
-      
-      if (btnElement) {
-        btnElement.classList.add('active');
-      } else {
-        const activeTab = document.getElementById('tab-' + cat);
-        if (activeTab) activeTab.classList.add('active');
-      }
-      renderBoard();
-    }
-
-    function handleWritePost(e) {
-      e.preventDefault();
-      const category = document.getElementById('postCategory').value;
-      const author = document.getElementById('postAuthor').value;
-      const title = document.getElementById('postTitle').value;
-      const videoUrl = document.getElementById('postVideoUrl').value;
-      const content = document.getElementById('postContent').value;
-
-      const newPost = {
-        id: posts.length + 1,
-        category,
-        title,
-        author,
-        date: new Date().toISOString().split('T')[0],
-        views: 0,
-        content,
-        videoUrl,
-        images: [...uploadedImages]
-      };
-
-      posts.unshift(newPost);
-
-      document.getElementById('postTitle').value = '';
-      document.getElementById('postVideoUrl').value = '';
-      document.getElementById('postContent').value = '';
-      document.getElementById('postImages').value = '';
-      document.getElementById('imagePreviewContainer').innerHTML = '';
-      uploadedImages = [];
-
-      alert('게시글이 성공적으로 등록되었습니다!');
-      navigateTo('community', category);
-    }
-
-    function openDetailModal(postId) {
-      const post = posts.find(p => p.id === postId);
-      if (!post) return;
-
-      post.views += 1;
-      renderBoard();
-
-      const catInfo = categoryMap[post.category] || { name: '기타', class: '' };
-
-      document.getElementById('detailCategory').textContent = catInfo.name;
-      document.getElementById('detailCategory').className = `cat-badge ${catInfo.class}`;
-      document.getElementById('detailTitle').textContent = post.title;
-      document.getElementById('detailAuthor').textContent = '작성자: ' + post.author;
-      document.getElementById('detailDate').textContent = '날짜: ' + post.date;
-      document.getElementById('detailViews').textContent = '조회수: ' + post.views;
-      document.getElementById('detailContent').textContent = post.content;
-
-      const mediaContainer = document.getElementById('detailMedia');
-      mediaContainer.innerHTML = '';
-
-      const embedUrl = getYoutubeEmbedUrl(post.videoUrl);
-      if (embedUrl) {
-        const videoWrap = document.createElement('div');
-        videoWrap.className = 'video-container';
-        videoWrap.innerHTML = `<iframe src="${embedUrl}" allowfullscreen></iframe>`;
-        mediaContainer.appendChild(videoWrap);
-      }
-
-      if (post.images && post.images.length > 0) {
-        post.images.forEach(imgSrc => {
-          const imgEl = document.createElement('img');
-          imgEl.src = imgSrc;
-          mediaContainer.appendChild(imgEl);
-        });
-      }
-
-      document.getElementById('detailModal').classList.add('active');
-    }
-
-    function closeDetailModal() { 
-      document.getElementById('detailModal').classList.remove('active'); 
-      document.getElementById('detailMedia').innerHTML = '';
-    }
-
-    /* D-Day 계산 및 신작 카드 렌더링 */
-    function getDDay(targetDate) {
-      const today = new Date();
-      const target = new Date(targetDate);
-      const diffTime = target - today;
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      return diffDays > 0 ? `D-${diffDays}` : (diffDays === 0 ? 'D-Day' : '출시 완료');
-    }
-
-    function renderUpcoming() {
-      const container = document.getElementById('upcomingGrid');
-      if (!container) return;
-      container.innerHTML = '';
-
-      const filtered = upcomingGames.filter(game => 
-        currentPlatform === 'all' || game.platforms.includes(currentPlatform)
-      );
-
-      filtered.forEach(game => {
-        const card = document.createElement('div');
-        card.className = 'upcoming-card';
-
-        const platformBadges = game.platforms.map(p => `<span class="platform-tag">${p}</span>`).join('');
-        const dDay = getDDay(game.date);
-
-        card.innerHTML = `
-          <img src="${game.poster}" class="card-poster" alt="${game.title}">
-          <div class="card-body">
-            <div class="card-tags">
-              <span class="d-day-badge">${dDay}</span>
-              ${platformBadges}
-            </div>
-            <div class="card-title">${game.title}</div>
-            <div class="card-desc">${game.desc}</div>
-            <div class="card-date">🗓️ ${game.date} 출시 예정</div>
-            <div class="card-btn-group">
-              ${game.videoUrl ? `<button class="card-btn primary-btn" onclick="playTrailer('${game.videoUrl}', '${game.title}')">🎬 트레일러</button>` : ''}
-              <button class="card-btn" onclick="alert('⭐ [${game.title}] 관심 게임으로 등록되었습니다!')">⭐ 찜하기</button>
-            </div>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function filterUpcoming(platform, btn) {
-      currentPlatform = platform;
-      const parent = btn.parentElement;
-      parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    // 페이지별 서브 카테고리 로직
+    if (pageId === 'community') {
+      const targetTab = subTarget || 'all';
+      filterBoard(targetTab, null, false); // 해시 이동 없이 UI만 동기화
+    } else if (pageId === 'upcoming') {
       renderUpcoming();
     }
 
-    function playTrailer(url, title = '게임 트레일러') {
-      const embedUrl = getYoutubeEmbedUrl(url);
-      if (!embedUrl) return;
+    window.scrollTo(0, 0);
+  }
 
-      document.getElementById('detailCategory').textContent = '🎬 공식 트레일러';
-      document.getElementById('detailCategory').className = 'cat-badge recommend';
-      document.getElementById('detailTitle').textContent = title;
-      document.getElementById('detailAuthor').textContent = 'GAME HUB TV';
-      document.getElementById('detailDate').textContent = 'HD 1080p';
-      document.getElementById('detailViews').textContent = '';
-      document.getElementById('detailContent').textContent = '';
+  window.addEventListener('hashchange', handleRouting);
+  window.addEventListener('DOMContentLoaded', handleRouting);
 
-      const mediaContainer = document.getElementById('detailMedia');
-      mediaContainer.innerHTML = `<div class="video-container"><iframe src="${embedUrl}" allowfullscreen></iframe></div>`;
+  function getYoutubeEmbedUrl(url) {
+    if (!url) return null;
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : null;
+  }
 
-      document.getElementById('detailModal').classList.add('active');
+  function handleImagePreview(event) {
+    const files = event.target.files;
+    const container = document.getElementById('imagePreviewContainer');
+    container.innerHTML = '';
+    uploadedImages = [];
+
+    Array.from(files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        uploadedImages.push(e.target.result);
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.className = 'img-preview-item';
+        container.appendChild(img);
+      }
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function renderBoard() {
+    const listContainer = document.getElementById('boardList');
+    if (!listContainer) return;
+    listContainer.innerHTML = '';
+
+    const filteredPosts = posts.filter(post => currentFilter === 'all' || post.category === currentFilter);
+
+    if (filteredPosts.length === 0) {
+      listContainer.innerHTML = `<tr><td colspan="5" style="text-align:center; color: var(--text-sub); padding: 2rem;">등록된 게시글이 없습니다.</td></tr>`;
+      return;
     }
 
-    /* 메인 슬라이더 script */
-    let slideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
-    const wrapper = document.getElementById('sliderWrapper');
+    filteredPosts.forEach(post => {
+      const catInfo = categoryMap[post.category] || { name: '기타', class: '' };
+      let mediaIcon = '';
+      if (post.images && post.images.length > 0) mediaIcon += ' 🖼️';
+      if (post.videoUrl) mediaIcon += ' 🎬';
 
-    function updateSlider() {
-      if (!wrapper) return;
-      wrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
-      dots.forEach((dot, index) => dot.classList.toggle('active', index === slideIndex));
+      const tr = document.createElement('tr');
+      tr.onclick = () => openDetailModal(post.id);
+      tr.innerHTML = `
+        <td><span class="cat-badge ${catInfo.class}">${catInfo.name}</span></td>
+        <td style="font-weight: 600;">${post.title} <span style="font-size: 0.8rem;">${mediaIcon}</span></td>
+        <td class="col-author">${post.author}</td>
+        <td class="col-date">${post.date}</td>
+        <td class="col-views">${post.views}</td>
+      `;
+      listContainer.appendChild(tr);
+    });
+  }
+
+  /* 카테고리 필터링 (수정됨: 해시 동기화 추가) */
+  function filterBoard(cat, btnElement = null, updateHash = true) {
+    currentFilter = cat;
+
+    if (updateHash) {
+      window.location.hash = `community/${cat}`;
+      return; // hashchange 이벤트가 handleRouting -> filterBoard(..., false)를 자동 호출함
     }
 
-    function moveSlide(step) {
-      slideIndex = (slideIndex + step + slides.length) % slides.length;
-      updateSlider();
+    document.querySelectorAll('#page-community .tab-btn').forEach(btn => btn.classList.remove('active'));
+    
+    const activeTab = document.getElementById('tab-' + cat);
+    if (activeTab) {
+      activeTab.classList.add('active');
     }
 
-    function currentSlide(index) {
-      slideIndex = index;
-      updateSlider();
+    renderBoard();
+  }
+
+  function handleWritePost(e) {
+    e.preventDefault();
+    const category = document.getElementById('postCategory').value;
+    const author = document.getElementById('postAuthor').value;
+    const title = document.getElementById('postTitle').value;
+    const videoUrl = document.getElementById('postVideoUrl').value;
+    const content = document.getElementById('postContent').value;
+
+    const newPost = {
+      id: posts.length + 1,
+      category,
+      title,
+      author,
+      date: new Date().toISOString().split('T')[0],
+      views: 0,
+      content,
+      videoUrl,
+      images: [...uploadedImages]
+    };
+
+    posts.unshift(newPost);
+
+    document.getElementById('postTitle').value = '';
+    document.getElementById('postVideoUrl').value = '';
+    document.getElementById('postContent').value = '';
+    document.getElementById('postImages').value = '';
+    document.getElementById('imagePreviewContainer').innerHTML = '';
+    uploadedImages = [];
+
+    alert('게시글이 성공적으로 등록되었습니다!');
+    navigateTo('community', category);
+  }
+
+  function openDetailModal(postId) {
+    const post = posts.find(p => p.id === postId);
+    if (!post) return;
+
+    post.views += 1;
+    renderBoard();
+
+    const catInfo = categoryMap[post.category] || { name: '기타', class: '' };
+
+    document.getElementById('detailCategory').textContent = catInfo.name;
+    document.getElementById('detailCategory').className = `cat-badge ${catInfo.class}`;
+    document.getElementById('detailTitle').textContent = post.title;
+    document.getElementById('detailAuthor').textContent = '작성자: ' + post.author;
+    document.getElementById('detailDate').textContent = '날짜: ' + post.date;
+    document.getElementById('detailViews').textContent = '조회수: ' + post.views;
+    document.getElementById('detailContent').textContent = post.content;
+
+    const mediaContainer = document.getElementById('detailMedia');
+    mediaContainer.innerHTML = '';
+
+    const embedUrl = getYoutubeEmbedUrl(post.videoUrl);
+    if (embedUrl) {
+      const videoWrap = document.createElement('div');
+      videoWrap.className = 'video-container';
+      videoWrap.innerHTML = `<iframe src="${embedUrl}" allowfullscreen></iframe>`;
+      mediaContainer.appendChild(videoWrap);
     }
 
-    setInterval(() => { moveSlide(1); }, 4000);
-  </script>
+    if (post.images && post.images.length > 0) {
+      post.images.forEach(imgSrc => {
+        const imgEl = document.createElement('img');
+        imgEl.src = imgSrc;
+        mediaContainer.appendChild(imgEl);
+      });
+    }
+
+    document.getElementById('detailModal').classList.add('active');
+  }
+
+  function closeDetailModal() { 
+    document.getElementById('detailModal').classList.remove('active'); 
+    document.getElementById('detailMedia').innerHTML = '';
+  }
+
+  /* D-Day 계산 및 신작 카드 렌더링 */
+  function getDDay(targetDate) {
+    const today = new Date();
+    const target = new Date(targetDate);
+    const diffTime = target - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays > 0 ? `D-${diffDays}` : (diffDays === 0 ? 'D-Day' : '출시 완료');
+  }
+
+  function renderUpcoming() {
+    const container = document.getElementById('upcomingGrid');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const filtered = upcomingGames.filter(game => 
+      currentPlatform === 'all' || game.platforms.includes(currentPlatform)
+    );
+
+    filtered.forEach(game => {
+      const card = document.createElement('div');
+      card.className = 'upcoming-card';
+
+      const platformBadges = game.platforms.map(p => `<span class="platform-tag">${p}</span>`).join('');
+      const dDay = getDDay(game.date);
+
+      card.innerHTML = `
+        <img src="${game.poster}" class="card-poster" alt="${game.title}">
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="d-day-badge">${dDay}</span>
+            ${platformBadges}
+          </div>
+          <div class="card-title">${game.title}</div>
+          <div class="card-desc">${game.desc}</div>
+          <div class="card-date">🗓️ ${game.date} 출시 예정</div>
+          <div class="card-btn-group">
+            ${game.videoUrl ? `<button class="card-btn primary-btn" onclick="playTrailer('${game.videoUrl}', '${game.title}')">🎬 트레일러</button>` : ''}
+            <button class="card-btn" onclick="alert('⭐ [${game.title}] 관심 게임으로 등록되었습니다!')">⭐ 찜하기</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function filterUpcoming(platform, btn) {
+    currentPlatform = platform;
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderUpcoming();
+  }
+
+  function playTrailer(url, title = '게임 트레일러') {
+    const embedUrl = getYoutubeEmbedUrl(url);
+    if (!embedUrl) return;
+
+    document.getElementById('detailCategory').textContent = '🎬 공식 트레일러';
+    document.getElementById('detailCategory').className = 'cat-badge recommend';
+    document.getElementById('detailTitle').textContent = title;
+    document.getElementById('detailAuthor').textContent = 'GAME HUB TV';
+    document.getElementById('detailDate').textContent = 'HD 1080p';
+    document.getElementById('detailViews').textContent = '';
+    document.getElementById('detailContent').textContent = '';
+
+    const mediaContainer = document.getElementById('detailMedia');
+    mediaContainer.innerHTML = `<div class="video-container"><iframe src="${embedUrl}" allowfullscreen></iframe></div>`;
+
+    document.getElementById('detailModal').classList.add('active');
+  }
+
+  /* 메인 슬라이더 script */
+  let slideIndex = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  const wrapper = document.getElementById('sliderWrapper');
+
+  function updateSlider() {
+    if (!wrapper) return;
+    wrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
+    dots.forEach((dot, index) => dot.classList.toggle('active', index === slideIndex));
+  }
+
+  function moveSlide(step) {
+    slideIndex = (slideIndex + step + slides.length) % slides.length;
+    updateSlider();
+  }
+
+  function currentSlide(index) {
+    slideIndex = index;
+    updateSlider();
+  }
+
+  setInterval(() => { moveSlide(1); }, 4000);
+</script>
 </body>
 </html>
