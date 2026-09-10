@@ -25,31 +25,14 @@
     .nav-container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; display: flex; justify-content: space-between; align-items: center; height: 60px; }
     .logo { font-size: 1.3rem; font-weight: 800; color: var(--accent-color); cursor: pointer; }
 
-    /* GNB 네비게이션 및 드롭다운 스타일 */
-    .nav-links { display: flex; gap: 1rem; list-style: none; height: 100%; }
-    
-    .nav-item {
-      position: relative;
-      display: flex;
-      align-items: center;
-      height: 100%;
-    }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; height: 100%; }
 
-    .nav-link {
-      padding: 0 0.8rem;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text-main);
-      cursor: pointer;
-      transition: color 0.2s;
-      display: flex;
-      align-items: center;
-      height: 100%;
-    }
-
+    /* GNB 네비게이션 및 드롭다운 */
+    .nav-links { display: flex; gap: 0.5rem; list-style: none; height: 100%; }
+    .nav-item { position: relative; display: flex; align-items: center; height: 100%; }
+    .nav-link { padding: 0 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); cursor: pointer; transition: color 0.2s; display: flex; align-items: center; height: 100%; }
     .nav-link:hover, .nav-link.active { color: var(--accent-color); }
 
-    /* 하위 드롭다운 메뉴 박스 */
     .dropdown-menu {
       display: none;
       position: absolute;
@@ -65,47 +48,33 @@
       z-index: 200;
     }
 
-    .dropdown-menu li a {
-      display: block;
-      padding: 0.6rem 1.2rem;
-      font-size: 0.85rem;
-      color: var(--text-sub);
-      transition: background-color 0.2s, color 0.2s;
-      cursor: pointer;
-    }
+    .dropdown-menu li a { display: block; padding: 0.6rem 1.2rem; font-size: 0.85rem; color: var(--text-sub); transition: background-color 0.2s, color 0.2s; cursor: pointer; }
+    .dropdown-menu li a:hover { background-color: var(--card-hover); color: var(--text-main); }
+    .nav-item:hover .dropdown-menu { display: block; }
 
-    .dropdown-menu li a:hover {
-      background-color: var(--card-hover);
+    /* 회원가입 / 로그인 버튼 */
+    .auth-btn {
+      background-color: transparent;
+      border: 1px solid var(--border-color);
       color: var(--text-main);
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
     }
+    .auth-btn:hover { background-color: var(--card-hover); border-color: var(--accent-color); }
 
-    /* 마우스 호버 시 드롭다운 표시 */
-    .nav-item:hover .dropdown-menu {
-      display: block;
-    }
-
-    /* 페이지 전환 및 본문 레이아웃 */
+    /* 레이아웃 */
     .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
     .page-view { display: none; }
     .page-view.active { display: block; }
 
     .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }
     .section-title { font-size: 1.25rem; font-weight: 700; }
-    
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-bottom: 3rem; }
+
     .deal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
-
-    .card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem; transition: transform 0.2s, background-color 0.2s; cursor: pointer; }
-    .card:hover { transform: translateY(-3px); background-color: var(--card-hover); }
-
-    .badge { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.5rem; border-radius: 4px; margin-bottom: 0.6rem; }
-    .badge-free { background-color: var(--accent-green); color: #000; }
-    .badge-news { background-color: var(--accent-color); color: #fff; }
-
-    .card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.4rem; }
-    .card p { font-size: 0.85rem; color: var(--text-sub); }
-
     .deal-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
     .deal-thumb { width: 100%; height: 110px; background-color: #2a2a30; }
     .deal-info { padding: 0.8rem; }
@@ -121,64 +90,63 @@
     <div class="nav-container">
       <div class="logo" onclick="showPage('home')">GAME HUB</div>
       
-      <ul class="nav-links">
-        <!-- 1. 무료 & 할인 메뉴 + 하위 드롭다운 -->
-        <li class="nav-item">
-          <a class="nav-link" id="nav-free" onclick="showPage('free')">무료 & 할인 ▾</a>
-          <ul class="dropdown-menu">
-            <li><a onclick="showPage('free', 'epic')">🎁 에픽게임즈 무료</a></li>
-            <li><a onclick="showPage('free', 'steam')">🔥 스팀 특가 할인</a></li>
-          </ul>
-        </li>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li class="nav-item">
+            <a class="nav-link" id="nav-free" onclick="showPage('free')">무료 & 할인 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a onclick="showPage('free', 'epic')">🎁 에픽게임즈 무료</a></li>
+              <li><a onclick="showPage('free', 'steam')">🔥 스팀 특가 할인</a></li>
+            </ul>
+          </li>
 
-        <!-- 2. 게임뉴스 메뉴 + 하위 드롭다운 -->
-        <li class="nav-item">
-          <a class="nav-link" id="nav-news" onclick="showPage('news')">게임뉴스 ▾</a>
-          <ul class="dropdown-menu">
-            <li><a onclick="showPage('news', 'patch')">📢 패치노트 & 업데이트</a></li>
-            <li><a onclick="showPage('news', 'esports')">🏆 e스포츠 소식</a></li>
-          </ul>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" id="nav-news" onclick="showPage('news')">게임뉴스 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a onclick="showPage('news', 'patch')">📢 패치노트 & 업데이트</a></li>
+              <li><a onclick="showPage('news', 'esports')">🏆 e스포츠 소식</a></li>
+            </ul>
+          </li>
 
-        <!-- 3. 출시예정작 메뉴 + 하위 드롭다운 -->
-        <li class="nav-item">
-          <a class="nav-link" id="nav-upcoming" onclick="showPage('upcoming')">출시예정작 ▾</a>
-          <ul class="dropdown-menu">
-            <li><a onclick="showPage('upcoming', 'monthly')">📅 월별 신작 정보</a></li>
-            <li><a onclick="showPage('upcoming', 'trailer')">🎬 트레일러 모음</a></li>
-          </ul>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" id="nav-upcoming" onclick="showPage('upcoming')">출시예정작 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a onclick="showPage('upcoming', 'monthly')">📅 월별 신작 정보</a></li>
+              <li><a onclick="showPage('upcoming', 'trailer')">🎬 트레일러 모음</a></li>
+            </ul>
+          </li>
 
-        <!-- 4. 커뮤니티 메뉴 + 하위 드롭다운 -->
-        <li class="nav-item">
-          <a class="nav-link" id="nav-community" onclick="showPage('community')">커뮤니티 ▾</a>
-          <ul class="dropdown-menu">
-            <li><a onclick="showPage('community', 'freeboard')">💬 자유 게시판</a></li>
-            <li><a onclick="showPage('community', 'party')">👥 파티 모집 (LFG)</a></li>
-          </ul>
-        </li>
-      </ul>
+          <li class="nav-item">
+            <a class="nav-link" id="nav-community" onclick="showPage('community')">커뮤니티 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a onclick="showPage('community', 'freeboard')">💬 자유 게시판</a></li>
+              <li><a onclick="showPage('community', 'party')">👥 파티 모집 (LFG)</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- 로그인/회원가입 버튼 위치 미리 확보 -->
+        <button class="auth-btn" onclick="alert('Supabase 연동 후 로그인 모달이 열립니다.')">로그인</button>
+      </div>
     </div>
   </header>
 
   <div class="container">
 
-    <!-- ==================== 1. 메인 홈 화면 ==================== -->
+    <!-- ==================== 1. 메인 홈 화면 (카드 제거 버전) ==================== -->
     <div id="page-home" class="page-view active">
-      <section>
-        <div class="section-header">
-          <h2 class="section-title">🎁 무료 게임 & 특가 할인</h2>
-        </div>
-        <div class="grid-2">
-          <div class="card" onclick="showPage('free', 'epic')">
-            <span class="badge badge-free">EPIC FREE</span>
-            <h3>에픽게임즈 이번 주 무료 배포</h3>
-            <p>이번 주 배포되는 정품 게임 소식입니다. 기간 내 등록 시 영구 소장 가능합니다.</p>
-          </div>
-          <div class="card" onclick="showPage('free', 'steam')">
-            <span class="badge badge-free">STEAM SALE</span>
-            <h3>스팀 주말 최고 할인 타이틀</h3>
-            <p>인기 타이틀 역대 최저가 및 주말 할인 정보를 확인하세요.</p>
+      <div class="section-header">
+        <h2 class="section-title">🔥 오늘의 주요 게이밍 소식</h2>
+      </div>
+      <p style="color: var(--text-sub); margin-bottom: 2rem;">상단 메뉴를 통해 원하는 카테고리로 바로 이동할 수 있습니다.</p>
+
+      <!-- 홈 메인에 보여줄 실시간 데이터 핫이슈 영역 -->
+      <section id="home-hot-deals">
+        <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent-green);">🎁 추천 무료 & 특가 게임</h3>
+        <div class="deal-grid">
+          <div class="deal-card">
+            <div class="deal-thumb"></div>
+            <div class="deal-info"><div class="deal-title">로딩 중...</div></div>
           </div>
         </div>
       </section>
@@ -195,7 +163,7 @@
         <div class="deal-grid">
           <div class="deal-card">
             <div class="deal-thumb"></div>
-            <div class="deal-info"><div class="deal-title">무료 배포 게임</div></div>
+            <div class="deal-info"><div class="deal-title">에픽 무료 게임 소식</div></div>
           </div>
         </div>
       </section>
@@ -205,7 +173,7 @@
         <div class="deal-grid">
           <div class="deal-card">
             <div class="deal-thumb"></div>
-            <div class="deal-info"><div class="deal-title">스팀 할인 게임</div></div>
+            <div class="deal-info"><div class="deal-title">스팀 할인 게임 소식</div></div>
           </div>
         </div>
       </section>
@@ -214,13 +182,13 @@
     <!-- ==================== 3. 게임뉴스 화면 ==================== -->
     <div id="page-news" class="page-view">
       <div class="section-header"><h2 class="section-title">📢 실시간 게임 뉴스</h2></div>
-      <p style="color: var(--text-sub);">최신 패치노트 및 e스포츠 뉴스 공간입니다.</p>
+      <p style="color: var(--text-sub);">최신 패치노트 및 e스포츠 소식입니다.</p>
     </div>
 
     <!-- ==================== 4. 출시예정작 화면 ==================== -->
     <div id="page-upcoming" class="page-view">
       <div class="section-header"><h2 class="section-title">📅 이달의 출시 예정작</h2></div>
-      <p style="color: var(--text-sub);">월별 신작 및 기대작 공간입니다.</p>
+      <p style="color: var(--text-sub);">월별 신작 라인업 정보입니다.</p>
     </div>
 
     <!-- ==================== 5. 커뮤니티 화면 ==================== -->
