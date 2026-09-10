@@ -466,12 +466,21 @@
 
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
       
-      if (pageId.startsWith('community')) {
-        const activeNav = document.getElementById('nav-community');
-        if (activeNav) activeNav.classList.add('active');
-      } else {
-        const activeNav = document.getElementById('nav-' + pageId);
-        if (activeNav) activeNav.classList.add('active');
+    // 페이지별 서브 카테고리 로직
+      if (pageId === 'community') {
+        const targetTab = subTarget || 'all';
+        const btn = document.getElementById('tab-' + targetTab);
+        filterBoard(targetTab, btn);
+      } else if (pageId === 'upcoming') {
+        renderUpcoming();
+        if (subTarget === 'trailer') {
+          // 1. 첫 번째 게임 트레일러 재생
+          if (upcomingGames.length > 0) {
+            playTrailer(upcomingGames[0].videoUrl, upcomingGames[0].title);
+          }
+          // 2. F5 새로고침 시 팝업 재실행 방지를 위해 URL 해시를 일반 화면(#upcoming)으로 즉시 변경
+          history.replaceState(null, '', '#upcoming');
+        }
       }
 
       // 페이지별 서브 카테고리 로직
