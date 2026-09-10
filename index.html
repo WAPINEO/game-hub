@@ -52,7 +52,7 @@
     .dropdown-menu li a:hover { background-color: var(--card-hover); color: var(--text-main); }
     .nav-item:hover .dropdown-menu { display: block; }
 
-    /* 회원가입 / 로그인 버튼 */
+    /* 로그인 버튼 */
     .auth-btn {
       background-color: transparent;
       border: 1px solid var(--border-color);
@@ -67,7 +67,7 @@
     .auth-btn:hover { background-color: var(--card-hover); border-color: var(--accent-color); }
 
     /* 레이아웃 */
-    .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+    .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; min-height: 70vh; }
     .page-view { display: none; }
     .page-view.active { display: block; }
 
@@ -125,7 +125,6 @@
           </li>
         </ul>
 
-        <!-- 로그인/회원가입 버튼 위치 미리 확보 -->
         <button class="auth-btn" onclick="alert('Supabase 연동 후 로그인 모달이 열립니다.')">로그인</button>
       </div>
     </div>
@@ -133,23 +132,9 @@
 
   <div class="container">
 
-    <!-- ==================== 1. 메인 홈 화면 (카드 제거 버전) ==================== -->
+    <!-- ==================== 1. 메인 홈 화면 (완전 빈 영역) ==================== -->
     <div id="page-home" class="page-view active">
-      <div class="section-header">
-        <h2 class="section-title">🔥 오늘의 주요 게이밍 소식</h2>
-      </div>
-      <p style="color: var(--text-sub); margin-bottom: 2rem;">상단 메뉴를 통해 원하는 카테고리로 바로 이동할 수 있습니다.</p>
-
-      <!-- 홈 메인에 보여줄 실시간 데이터 핫이슈 영역 -->
-      <section id="home-hot-deals">
-        <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent-green);">🎁 추천 무료 & 특가 게임</h3>
-        <div class="deal-grid">
-          <div class="deal-card">
-            <div class="deal-thumb"></div>
-            <div class="deal-info"><div class="deal-title">로딩 중...</div></div>
-          </div>
-        </div>
-      </section>
+      <!-- 추후 메인에 들어갈 요소를 위해 비워둔 영역입니다 -->
     </div>
 
     <!-- ==================== 2. 무료 & 할인 화면 ==================== -->
