@@ -185,12 +185,12 @@
             </ul>
           </li>
           <li class="nav-item">
-  <a class="nav-link" id="nav-upcoming" onclick="navigateTo('upcoming')">출시예정작 ▾</a>
-  <ul class="dropdown-menu">
-    <li><a onclick="navigateTo('upcoming', 'monthly')">📅 이달의 출시 예정작</a></li>
-    <li><a onclick="navigateTo('upcoming', 'trailer')">🎬 트레일러 모음</a></li>
-  </ul>
-</li>
+            <a class="nav-link" id="nav-upcoming" onclick="navigateTo('upcoming')">출시예정작 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a onclick="navigateTo('upcoming', 'monthly')">📅 이달의 출시 예정작</a></li>
+              <li><a onclick="navigateTo('upcoming', 'trailer')">🎬 트레일러 모음</a></li>
+            </ul>
+          </li>
           <li class="nav-item">
             <a class="nav-link" id="nav-community" onclick="navigateTo('community')">커뮤니티 ▾</a>
             <ul class="dropdown-menu">
@@ -256,7 +256,7 @@
     <!-- ==================== 4. 출시예정작 화면 ==================== -->
     <div id="page-upcoming" class="page-view">
       <div class="section-header">
-        <h2 class="section-title" id="upcomingHeaderTitle">📅 이달의 출시 예정작 & 기대작</h2>
+        <h2 class="section-title" id="upcomingHeaderTitle">📅 이달의 출시 예정작</h2>
       </div>
       <div class="board-toolbar">
         <div class="board-category-tabs">
@@ -354,7 +354,7 @@
 
   </div>
 
-  <!-- 상세 보기 모달 -->
+  <!-- 상세 보기 및 트레일러 모달 -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal-box">
       <div class="modal-header">
@@ -393,14 +393,13 @@
     let uploadedImages = [];
 
     let posts = [
-      { id: 1, category: 'guide', title: '[공략] 초보자를 위한 초반 필수 설정 및 꿀팁 정리', author: '공략왕', date: '2026-09-10', views: 128, content: '게임 초반 옵션 설정과 효율적인 자원 관리 팁을 정리했습니다.', videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', images: [] },
+      { id: 1, category: 'guide', title: '[공략] 초보자를 위한 초반 필수 설정 및 꿀팁 정리', author: '공략왕', date: '2026-09-10', views: 128, content: '게임 초반 옵션 설정과 효율적인 자원 관리 팁을 정리했습니다.', videoUrl: 'https://www.youtube.com/watch?v=jQdFe0Wiugw', images: [] },
       { id: 2, category: 'qna', title: '이 사양으로 신작 그래픽 풀옵션 구동 가능한가요?', author: '컴알못', date: '2026-09-10', views: 35, content: 'RTX 4070 사용 중인데 FHD 환경에서 60프레임 방어 되는지 궁금합니다.', videoUrl: '', images: [] },
       { id: 3, category: 'recommend', title: '주말에 가볍게 즐기기 좋은 힐링 인디게임 3선', author: '인디러버', date: '2026-09-09', views: 89, content: '부담 없이 스토리에 몰입할 수 있는 명작 인디게임들을 추천합니다.', videoUrl: '', images: [] },
       { id: 4, category: 'party', title: '발로란트 경쟁전 같이 달릴 분 구합니다 (3/5)', author: 'FPS마스터', date: '2026-09-09', views: 54, content: '마이크 필수, 즐겜 유저 분들 편하게 신청해 주세요!', videoUrl: '', images: [] }
     ];
 
-    /* 자동 등록된 신작 게임 & 공식 트레일러 리스트 */
-   /* 실제 게임 트레일러 URL이 연결된 신작 리스트 */
+    /* 실제 게임 트레일러 URL이 매핑된 신작 리스트 */
     const upcomingGames = [
       {
         id: 1,
@@ -409,7 +408,7 @@
         date: '2026-09-15',
         platforms: ['PC', 'PS5', 'Xbox'],
         poster: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=jQdFe0Wiugw' // 몬헌 와일즈 공식 트레일러
+        videoUrl: 'https://www.youtube.com/watch?v=jQdFe0Wiugw'
       },
       {
         id: 2,
@@ -418,7 +417,7 @@
         date: '2026-09-20',
         platforms: ['PC', 'PS5', 'Xbox'],
         poster: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=lkC75FzExf0' // 던워커 스토리 트레일러
+        videoUrl: 'https://www.youtube.com/watch?v=lkC75FzExf0'
       },
       {
         id: 3,
@@ -427,7 +426,7 @@
         date: '2026-09-28',
         platforms: ['PS5'],
         poster: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=gX461wBRQVs' // 마블 울버린 공식 트레일러
+        videoUrl: 'https://www.youtube.com/watch?v=gX461wBRQVs'
       },
       {
         id: 4,
@@ -436,9 +435,10 @@
         date: '2026-11-19',
         platforms: ['PS5', 'Xbox'],
         poster: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=XAgXfddQSwY' // GTA6 공식 트레일러
+        videoUrl: 'https://www.youtube.com/watch?v=XAgXfddQSwY'
       }
     ];
+
     let currentFilter = 'all';
     let currentPlatform = 'all';
 
@@ -448,7 +448,7 @@
       window.location.hash = hash;
     }
 
-    /* URL 상태 감지 및 화면 자동 렌더링 */
+    /* URL 상태 감지 및 라우팅 */
     function handleRouting() {
       const hash = window.location.hash.replace('#', '') || 'home';
       const parts = hash.split('/');
@@ -466,21 +466,12 @@
 
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
       
-    // 페이지별 서브 카테고리 로직
-      if (pageId === 'community') {
-        const targetTab = subTarget || 'all';
-        const btn = document.getElementById('tab-' + targetTab);
-        filterBoard(targetTab, btn);
-      } else if (pageId === 'upcoming') {
-        renderUpcoming();
-        if (subTarget === 'trailer') {
-          // 1. 첫 번째 게임 트레일러 재생
-          if (upcomingGames.length > 0) {
-            playTrailer(upcomingGames[0].videoUrl, upcomingGames[0].title);
-          }
-          // 2. F5 새로고침 시 팝업 재실행 방지를 위해 URL 해시를 일반 화면(#upcoming)으로 즉시 변경
-          history.replaceState(null, '', '#upcoming');
-        }
+      if (pageId.startsWith('community')) {
+        const activeNav = document.getElementById('nav-community');
+        if (activeNav) activeNav.classList.add('active');
+      } else {
+        const activeNav = document.getElementById('nav-' + pageId);
+        if (activeNav) activeNav.classList.add('active');
       }
 
       // 페이지별 서브 카테고리 로직
@@ -490,11 +481,19 @@
         filterBoard(targetTab, btn);
       } else if (pageId === 'upcoming') {
         renderUpcoming();
+        const headerTitle = document.getElementById('upcomingHeaderTitle');
+
         if (subTarget === 'trailer') {
-          // 트레일러 모음 클릭 시 첫 번째 신작 트레일러 자동 재생
+          if (headerTitle) headerTitle.textContent = '🎬 이달의 신작 트레일러 모음';
+          
+          // 첫 번째 신작 트레일러 모달 오픈
           if (upcomingGames.length > 0) {
             playTrailer(upcomingGames[0].videoUrl, upcomingGames[0].title);
           }
+          // F5 새로고침 시 모달 재실행 방지를 위한 주소 정리
+          history.replaceState(null, '', '#upcoming');
+        } else {
+          if (headerTitle) headerTitle.textContent = '📅 이달의 출시 예정작';
         }
       }
 
@@ -651,7 +650,7 @@
       document.getElementById('detailMedia').innerHTML = '';
     }
 
-    /* 출시 예정작 자동 계산 및 렌더링 기능 */
+    /* D-Day 계산 및 신작 카드 렌더링 */
     function getDDay(targetDate) {
       const today = new Date();
       const target = new Date(targetDate);
@@ -704,6 +703,7 @@
       renderUpcoming();
     }
 
+    /* 트레일러 팝업 호출 (자동 재생 OFF 설정) */
     function playTrailer(url, title = '게임 트레일러') {
       const embedUrl = getYoutubeEmbedUrl(url);
       if (!embedUrl) return;
@@ -716,13 +716,14 @@
       document.getElementById('detailViews').textContent = '';
       document.getElementById('detailContent').textContent = '';
 
+      // autoplay 옵션 제거 (클릭해야 재생됨)
       const mediaContainer = document.getElementById('detailMedia');
-      mediaContainer.innerHTML = `<div class="video-container"><iframe src="${embedUrl}?autoplay=1" allowfullscreen allow="autoplay"></iframe></div>`;
+      mediaContainer.innerHTML = `<div class="video-container"><iframe src="${embedUrl}" allowfullscreen></iframe></div>`;
 
       document.getElementById('detailModal').classList.add('active');
     }
 
-    /* 슬라이더 스크립트 */
+    /* 메인 슬라이더 script */
     let slideIndex = 0;
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
