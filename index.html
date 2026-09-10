@@ -27,7 +27,6 @@
 
     .nav-right { display: flex; align-items: center; gap: 1.5rem; height: 100%; }
 
-    /* GNB 네비게이션 및 드롭다운 */
     .nav-links { display: flex; gap: 0.5rem; list-style: none; height: 100%; }
     .nav-item { position: relative; display: flex; align-items: center; height: 100%; }
     .nav-link { padding: 0 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); cursor: pointer; transition: color 0.2s; display: flex; align-items: center; height: 100%; }
@@ -52,7 +51,6 @@
     .dropdown-menu li a:hover { background-color: var(--card-hover); color: var(--text-main); }
     .nav-item:hover .dropdown-menu { display: block; }
 
-    /* 로그인 버튼 */
     .auth-btn {
       background-color: transparent;
       border: 1px solid var(--border-color);
@@ -66,7 +64,6 @@
     }
     .auth-btn:hover { background-color: var(--card-hover); border-color: var(--accent-color); }
 
-    /* 레이아웃 */
     .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; min-height: 70vh; }
     .page-view { display: none; }
     .page-view.active { display: block; }
@@ -74,131 +71,60 @@
     .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }
     .section-title { font-size: 1.25rem; font-weight: 700; }
 
-    /* ==================== 대형 슬라이더 스타일 ==================== */
-    .slider-container {
-      position: relative;
-      width: 100%;
-      height: 380px;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border-color);
-      margin-bottom: 2.5rem;
-    }
+    /* 대형 슬라이더 */
+    .slider-container { position: relative; width: 100%; height: 380px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 2.5rem; }
+    .slider-wrapper { display: flex; width: 100%; height: 100%; transition: transform 0.4s ease-in-out; }
+    .slide { min-width: 100%; height: 100%; position: relative; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
+    .slide-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(18, 18, 20, 0.1) 0%, rgba(18, 18, 20, 0.9) 100%); }
+    .slide-content { position: relative; z-index: 10; padding: 2rem; max-width: 600px; }
+    .slide-badge { display: inline-block; padding: 0.3rem 0.6rem; background-color: var(--accent-color); color: #fff; font-size: 0.8rem; font-weight: 800; border-radius: 4px; margin-bottom: 0.8rem; }
+    .slide-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.2; }
+    .slide-desc { font-size: 0.95rem; color: #e0e0e0; margin-bottom: 1.2rem; }
+    .slide-btn { display: inline-block; padding: 0.6rem 1.2rem; background-color: var(--accent-green); color: #000; font-weight: 700; font-size: 0.85rem; border-radius: 6px; cursor: pointer; }
+    .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; background-color: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; z-index: 20; }
+    .slider-arrow.prev { left: 1rem; } .slider-arrow.next { right: 1rem; }
+    .slider-dots { position: absolute; bottom: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; z-index: 20; }
+    .dot { width: 10px; height: 10px; background-color: rgba(255, 255, 255, 0.4); border-radius: 50%; cursor: pointer; }
+    .dot.active { background-color: var(--accent-color); width: 24px; border-radius: 5px; }
 
-    .slider-wrapper {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      transition: transform 0.4s ease-in-out;
-    }
+    /* ==================== 커뮤니티 UI 스타일 ==================== */
+    .board-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; gap: 1rem; flex-wrap: wrap; }
+    .board-category-tabs { display: flex; gap: 0.5rem; }
+    .tab-btn { padding: 0.4rem 0.8rem; background-color: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-sub); border-radius: 6px; font-size: 0.85rem; cursor: pointer; }
+    .tab-btn.active { background-color: var(--accent-color); color: #fff; border-color: var(--accent-color); font-weight: 700; }
+    
+    .write-btn { padding: 0.5rem 1rem; background-color: var(--accent-color); color: #fff; border: none; border-radius: 6px; font-weight: 700; font-size: 0.85rem; cursor: pointer; }
+    .write-btn:hover { opacity: 0.9; }
 
-    .slide {
-      min-width: 100%;
-      height: 100%;
-      position: relative;
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: flex-end;
-    }
+    /* 게시판 테이블 */
+    .board-table { width: 100%; border-collapse: collapse; background-color: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); font-size: 0.9rem; }
+    .board-table th, .board-table td { padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid var(--border-color); }
+    .board-table th { background-color: #18181c; color: var(--text-sub); font-weight: 600; font-size: 0.85rem; }
+    .board-table tr:hover td { background-color: var(--card-hover); cursor: pointer; }
+    .col-cat { width: 110px; }
+    .col-author { width: 120px; color: var(--text-sub); }
+    .col-date { width: 100px; color: var(--text-sub); font-size: 0.8rem; }
+    .col-views { width: 70px; color: var(--text-sub); text-align: center; }
 
-    /* 이미지 위 그라데이션 어둡게 처리 */
-    .slide-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(180deg, rgba(18, 18, 20, 0.1) 0%, rgba(18, 18, 20, 0.9) 100%);
-    }
+    .cat-badge { display: inline-block; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; background-color: #2a2a30; color: var(--text-sub); }
+    .cat-badge.freeboard { color: #70a1ff; background-color: rgba(112, 161, 255, 0.1); }
+    .cat-badge.party { color: var(--accent-green); background-color: rgba(46, 213, 115, 0.1); }
 
-    .slide-content {
-      position: relative;
-      z-index: 10;
-      padding: 2rem;
-      max-width: 600px;
-    }
+    /* 글쓰기 모달 팝업 */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 300; justify-content: center; align-items: center; }
+    .modal-overlay.active { display: flex; }
+    .modal-box { background-color: var(--card-bg); border: 1px solid var(--border-color); width: 100%; max-width: 550px; border-radius: 10px; padding: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+    .modal-close { background: none; border: none; color: var(--text-sub); font-size: 1.2rem; cursor: pointer; }
+    
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.85rem; margin-bottom: 0.4rem; color: var(--text-sub); }
+    .form-control { width: 100%; padding: 0.6rem; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 0.9rem; }
+    .form-control:focus { outline: 1px solid var(--accent-color); }
+    textarea.form-control { height: 120px; resize: vertical; }
 
-    .slide-badge {
-      display: inline-block;
-      padding: 0.3rem 0.6rem;
-      background-color: var(--accent-color);
-      color: #fff;
-      font-size: 0.8rem;
-      font-weight: 800;
-      border-radius: 4px;
-      margin-bottom: 0.8rem;
-    }
-
-    .slide-title {
-      font-size: 1.8rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      line-height: 1.2;
-    }
-
-    .slide-desc {
-      font-size: 0.95rem;
-      color: #e0e0e0;
-      margin-bottom: 1.2rem;
-    }
-
-    .slide-btn {
-      display: inline-block;
-      padding: 0.6rem 1.2rem;
-      background-color: var(--accent-green);
-      color: #000;
-      font-weight: 700;
-      font-size: 0.85rem;
-      border-radius: 6px;
-      transition: opacity 0.2s;
-    }
-    .slide-btn:hover { opacity: 0.9; }
-
-    /* 슬라이더 컨트롤 버튼 (좌/우) */
-    .slider-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
-      background-color: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #fff;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      z-index: 20;
-      transition: background-color 0.2s;
-    }
-    .slider-arrow:hover { background-color: rgba(0, 0, 0, 0.8); }
-    .slider-arrow.prev { left: 1rem; }
-    .slider-arrow.next { right: 1rem; }
-
-    /* 슬라이더 도트 인디케이터 */
-    .slider-dots {
-      position: absolute;
-      bottom: 1rem;
-      right: 1.5rem;
-      display: flex;
-      gap: 0.5rem;
-      z-index: 20;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      background-color: rgba(255, 255, 255, 0.4);
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background-color 0.2s, width 0.2s;
-    }
-
-    .dot.active {
-      background-color: var(--accent-color);
-      width: 24px;
-      border-radius: 5px;
-    }
+    /* 상세 보기 모달 */
+    .post-detail-body { padding: 1rem 0; min-height: 100px; line-height: 1.6; color: #e0e0e0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); margin: 1rem 0; }
 
     footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid var(--border-color); color: var(--text-sub); font-size: 0.85rem; }
   </style>
@@ -209,7 +135,6 @@
   <header>
     <div class="nav-container">
       <div class="logo" onclick="showPage('home')">GAME HUB</div>
-      
       <div class="nav-right">
         <ul class="nav-links">
           <li class="nav-item">
@@ -219,7 +144,6 @@
               <li><a onclick="showPage('free', 'steam')">🔥 스팀 특가 할인</a></li>
             </ul>
           </li>
-
           <li class="nav-item">
             <a class="nav-link" id="nav-news" onclick="showPage('news')">게임뉴스 ▾</a>
             <ul class="dropdown-menu">
@@ -227,7 +151,6 @@
               <li><a onclick="showPage('news', 'esports')">🏆 e스포츠 소식</a></li>
             </ul>
           </li>
-
           <li class="nav-item">
             <a class="nav-link" id="nav-upcoming" onclick="showPage('upcoming')">출시예정작 ▾</a>
             <ul class="dropdown-menu">
@@ -235,7 +158,6 @@
               <li><a onclick="showPage('upcoming', 'trailer')">🎬 트레일러 모음</a></li>
             </ul>
           </li>
-
           <li class="nav-item">
             <a class="nav-link" id="nav-community" onclick="showPage('community')">커뮤니티 ▾</a>
             <ul class="dropdown-menu">
@@ -244,7 +166,6 @@
             </ul>
           </li>
         </ul>
-
         <button class="auth-btn" onclick="alert('Supabase 연동 후 로그인 모달이 열립니다.')">로그인</button>
       </div>
     </div>
@@ -252,14 +173,10 @@
 
   <div class="container">
 
-    <!-- ==================== 1. 메인 홈 화면 (대형 슬라이더 탑재) ==================== -->
+    <!-- ==================== 1. 메인 홈 화면 ==================== -->
     <div id="page-home" class="page-view active">
-      
-      <!-- 대형 메인 슬라이더 -->
       <div class="slider-container">
         <div class="slider-wrapper" id="sliderWrapper">
-          
-          <!-- 슬라이드 1 -->
           <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop');">
             <div class="slide-overlay"></div>
             <div class="slide-content">
@@ -269,8 +186,6 @@
               <a onclick="showPage('free', 'epic')" class="slide-btn">바로 확인하기 →</a>
             </div>
           </div>
-
-          <!-- 슬라이드 2 -->
           <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop');">
             <div class="slide-overlay"></div>
             <div class="slide-content">
@@ -280,69 +195,118 @@
               <a onclick="showPage('free', 'steam')" class="slide-btn">할인 목록 보기 →</a>
             </div>
           </div>
-
-          <!-- 슬라이드 3 -->
-          <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1200&auto=format&fit=crop');">
-            <div class="slide-overlay"></div>
-            <div class="slide-content">
-              <span class="slide-badge" style="background-color: #3742fa;">UPCOMING</span>
-              <h2 class="slide-title">이달의 기대되는 PC / 콘솔 신작 라인업</h2>
-              <p class="slide-desc">사전예약 혜택 및 정식 출시일을 바로 확인해보세요.</p>
-              <a onclick="showPage('upcoming')" class="slide-btn">신작 달력 보기 →</a>
-            </div>
-          </div>
-
         </div>
-
-        <!-- 슬라이드 컨트롤 버튼 -->
         <button class="slider-arrow prev" onclick="moveSlide(-1)">❮</button>
         <button class="slider-arrow next" onclick="moveSlide(1)">❯</button>
-
-        <!-- 슬라이드 인디케이터 (Dot) -->
         <div class="slider-dots">
           <span class="dot active" onclick="currentSlide(0)"></span>
           <span class="dot" onclick="currentSlide(1)"></span>
-          <span class="dot" onclick="currentSlide(2)"></span>
         </div>
       </div>
-
     </div>
 
     <!-- ==================== 2. 무료 & 할인 화면 ==================== -->
     <div id="page-free" class="page-view">
-      <div class="section-header">
-        <h2 class="section-title">🎁 실시간 무료 배포 및 스팀 특가</h2>
-      </div>
-
-      <section id="sub-epic" style="margin-bottom: 2.5rem;">
-        <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent-green);">🎮 에픽게임즈 무료 배포 목록</h3>
-        <p style="color: var(--text-sub);">에픽 무료 데이터가 로딩될 영역입니다.</p>
-      </section>
-
-      <section id="sub-steam">
-        <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #ffa502;">🔥 스팀 주말 및 정기 할인 타이틀</h3>
-        <p style="color: var(--text-sub);">스팀 할인 데이터가 로딩될 영역입니다.</p>
-      </section>
+      <div class="section-header"><h2 class="section-title">🎁 실시간 무료 배포 및 스팀 특가</h2></div>
+      <p style="color: var(--text-sub);">무료 및 할인 데이터 영역</p>
     </div>
 
     <!-- ==================== 3. 게임뉴스 화면 ==================== -->
     <div id="page-news" class="page-view">
       <div class="section-header"><h2 class="section-title">📢 실시간 게임 뉴스</h2></div>
-      <p style="color: var(--text-sub);">최신 패치노트 및 e스포츠 소식입니다.</p>
     </div>
 
     <!-- ==================== 4. 출시예정작 화면 ==================== -->
     <div id="page-upcoming" class="page-view">
       <div class="section-header"><h2 class="section-title">📅 이달의 출시 예정작</h2></div>
-      <p style="color: var(--text-sub);">월별 신작 라인업 정보입니다.</p>
     </div>
 
-    <!-- ==================== 5. 커뮤니티 화면 ==================== -->
+    <!-- ==================== 5. 커뮤니티 화면 (구현) ==================== -->
     <div id="page-community" class="page-view">
-      <div class="section-header"><h2 class="section-title">💬 게이머 커뮤니티</h2></div>
-      <p style="color: var(--text-sub);">자유 게시판 및 파티 모집 공간입니다.</p>
+      <div class="section-header">
+        <h2 class="section-title">💬 게이머 커뮤니티</h2>
+      </div>
+
+      <div class="board-toolbar">
+        <div class="board-category-tabs">
+          <button class="tab-btn active" onclick="filterBoard('all', this)">전체글</button>
+          <button class="tab-btn" onclick="filterBoard('freeboard', this)">자유 게시판</button>
+          <button class="tab-btn" onclick="filterBoard('party', this)">파티 모집 (LFG)</button>
+        </div>
+        <button class="write-btn" onclick="openWriteModal()">✏️ 글쓰기</button>
+      </div>
+
+      <!-- 게시판 테이블 -->
+      <table class="board-table">
+        <thead>
+          <tr>
+            <th class="col-cat">분류</th>
+            <th>제목</th>
+            <th class="col-author">작성자</th>
+            <th class="col-date">작성일</th>
+            <th class="col-views">조회</th>
+          </tr>
+        </thead>
+        <tbody id="boardList">
+          <!-- JS에서 동적으로 게시글 로딩 -->
+        </tbody>
+      </table>
     </div>
 
+  </div>
+
+  <!-- 글쓰기 모달 팝업 -->
+  <div class="modal-overlay" id="writeModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="font-size: 1.1rem;">✏️ 게시글 작성</h3>
+        <button class="modal-close" onclick="closeWriteModal()">✕</button>
+      </div>
+      <form onsubmit="handleWritePost(event)">
+        <div class="form-group">
+          <label>카테고리</label>
+          <select id="postCategory" class="form-control" required>
+            <option value="freeboard">자유 게시판</option>
+            <option value="party">파티 모집 (LFG)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>작성자 닉네임</label>
+          <input type="text" id="postAuthor" class="form-control" placeholder="닉네임 입력" required>
+        </div>
+        <div class="form-group">
+          <label>제목</label>
+          <input type="text" id="postTitle" class="form-control" placeholder="제목을 입력하세요" required>
+        </div>
+        <div class="form-group">
+          <label>내용</label>
+          <textarea id="postContent" class="form-control" placeholder="게시글 내용을 입력하세요..." required></textarea>
+        </div>
+        <button type="submit" class="write-btn" style="width: 100%; padding: 0.7rem;">등록하기</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 글 상세보기 모달 팝업 -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span id="detailCategory" class="cat-badge">카테고리</span>
+        <button class="modal-close" onclick="closeDetailModal()">✕</button>
+      </div>
+      <h2 id="detailTitle" style="font-size: 1.3rem; margin-bottom: 0.5rem;">글 제목</h2>
+      <div style="font-size: 0.8rem; color: var(--text-sub); display: flex; gap: 1rem;">
+        <span id="detailAuthor">작성자</span>
+        <span id="detailDate">날짜</span>
+        <span id="detailViews">조회수</span>
+      </div>
+      <div id="detailContent" class="post-detail-body">
+        글 내용이 들어갑니다.
+      </div>
+      <div style="text-align: right;">
+        <button class="auth-btn" onclick="closeDetailModal()">닫기</button>
+      </div>
+    </div>
   </div>
 
   <footer>
@@ -350,67 +314,152 @@
   </footer>
 
   <script>
-    /* 페이지 전환 스크립트 */
-    function showPage(pageId, subTarget = null) {
-      const pages = document.querySelectorAll('.page-view');
-      pages.forEach(page => page.classList.remove('active'));
+    /* 초기의 게시글 샘플 데이터 (배열) */
+    let posts = [
+      { id: 1, category: 'freeboard', title: '스팀 이번 주 할인 목록 어떤가요?', author: '게이머A', date: '2026-09-10', views: 42, content: '생각보다 할인율이 높은 타이틀이 많네요! 다들 이번 할인 때 어떤 게임 사실 건가요?' },
+      { id: 2, category: 'party', title: '발로란트 레디언트 찍으실 분 구합니다 (3/5)', author: 'FPS마스터', date: '2026-09-10', views: 18, content: '마이크 필수, 멘탈 좋으신 분 환영합니다. 주말 오후 라이트하게 달리실 분 댓글 달아주세요!' },
+      { id: 3, category: 'freeboard', title: '에픽 무료배포 꼭 받으세요', author: '겜돌이', date: '2026-09-09', views: 95, content: '이번 무료 배포 게임 평가가 아주 좋습니다. 기간 끝나기 전에 다들 등록해두세요.' }
+    ];
 
+    let currentFilter = 'all';
+
+    /* 페이지 전환 */
+    function showPage(pageId, subTarget = null) {
+      document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
       const targetPage = document.getElementById('page-' + pageId);
       if (targetPage) targetPage.classList.add('active');
 
-      const navLinks = document.querySelectorAll('.nav-link');
-      navLinks.forEach(link => link.classList.remove('active'));
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
       const activeNav = document.getElementById('nav-' + pageId);
       if (activeNav) activeNav.classList.add('active');
 
-      if (subTarget === 'epic') {
-        document.getElementById('sub-epic').scrollIntoView({ behavior: 'smooth' });
-      } else if (subTarget === 'steam') {
-        document.getElementById('sub-steam').scrollIntoView({ behavior: 'smooth' });
-      } else {
-        window.scrollTo(0, 0);
+      if (pageId === 'community') {
+        if (subTarget === 'freeboard') filterBoard('freeboard');
+        else if (subTarget === 'party') filterBoard('party');
+        else renderBoard();
       }
+
+      window.scrollTo(0, 0);
     }
 
-    /* 슬라이더 제어 스크립트 */
+    /* 게시판 리스트 렌더링 */
+    function renderBoard() {
+      const listContainer = document.getElementById('boardList');
+      listContainer.innerHTML = '';
+
+      const filteredPosts = posts.filter(post => currentFilter === 'all' || post.category === currentFilter);
+
+      if (filteredPosts.length === 0) {
+        listContainer.innerHTML = `<tr><td colspan="5" style="text-align:center; color: var(--text-sub); padding: 2rem;">게시글이 없습니다.</td></tr>`;
+        return;
+      }
+
+      filteredPosts.forEach(post => {
+        const catName = post.category === 'freeboard' ? '자유' : '파티모집';
+        const catClass = post.category === 'freeboard' ? 'freeboard' : 'party';
+
+        const tr = document.createElement('tr');
+        tr.onclick = () => openDetailModal(post.id);
+        tr.innerHTML = `
+          <td><span class="cat-badge ${catClass}">${catName}</span></td>
+          <td style="font-weight: 600;">${post.title}</td>
+          <td class="col-author">${post.author}</td>
+          <td class="col-date">${post.date}</td>
+          <td class="col-views">${post.views}</td>
+        `;
+        listContainer.appendChild(tr);
+      });
+    }
+
+    /* 카테고리 필터링 */
+    function filterBoard(cat, btnElement = null) {
+      currentFilter = cat;
+      if (btnElement) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        btnElement.classList.add('active');
+      }
+      renderBoard();
+    }
+
+    /* 글쓰기 모달 열기/닫기 */
+    function openWriteModal() { document.getElementById('writeModal').classList.add('active'); }
+    function closeWriteModal() { document.getElementById('writeModal').classList.remove('active'); }
+
+    /* 글 등록 처리 */
+    function handleWritePost(e) {
+      e.preventDefault();
+      const category = document.getElementById('postCategory').value;
+      const author = document.getElementById('postAuthor').value;
+      const title = document.getElementById('postTitle').value;
+      const content = document.getElementById('postContent').value;
+
+      const newPost = {
+        id: posts.length + 1,
+        category,
+        title,
+        author,
+        date: new Date().toISOString().split('T')[0],
+        views: 0,
+        content
+      };
+
+      posts.unshift(newPost); // 새 글을 맨 앞에 추가
+      renderBoard();
+      closeWriteModal();
+
+      // 입력 폼 초기화
+      document.getElementById('postTitle').value = '';
+      document.getElementById('postContent').value = '';
+      alert('게시글이 성공적으로 등록되었습니다!');
+    }
+
+    /* 상세 보기 모달 */
+    function openDetailModal(postId) {
+      const post = posts.find(p => p.id === postId);
+      if (!post) return;
+
+      post.views += 1; // 조회수 증가
+      renderBoard();
+
+      document.getElementById('detailCategory').textContent = post.category === 'freeboard' ? '자유 게시판' : '파티 모집';
+      document.getElementById('detailCategory').className = `cat-badge ${post.category}`;
+      document.getElementById('detailTitle').textContent = post.title;
+      document.getElementById('detailAuthor').textContent = '작성자: ' + post.author;
+      document.getElementById('detailDate').textContent = '날짜: ' + post.date;
+      document.getElementById('detailViews').textContent = '조회수: ' + post.views;
+      document.getElementById('detailContent').textContent = post.content;
+
+      document.getElementById('detailModal').classList.add('active');
+    }
+
+    function closeDetailModal() { document.getElementById('detailModal').classList.remove('active'); }
+
+    /* 슬라이더 스크립트 */
     let slideIndex = 0;
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
     const wrapper = document.getElementById('sliderWrapper');
-    let autoSlideInterval;
 
     function updateSlider() {
+      if (!wrapper) return;
       wrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === slideIndex);
-      });
+      dots.forEach((dot, index) => dot.classList.toggle('active', index === slideIndex));
     }
 
     function moveSlide(step) {
       slideIndex = (slideIndex + step + slides.length) % slides.length;
       updateSlider();
-      resetAutoSlide();
     }
 
     function currentSlide(index) {
       slideIndex = index;
       updateSlider();
-      resetAutoSlide();
     }
 
-    function startAutoSlide() {
-      autoSlideInterval = setInterval(() => {
-        moveSlide(1);
-      }, 4000); // 4초마다 자동 전환
-    }
+    setInterval(() => { moveSlide(1); }, 4000);
 
-    function resetAutoSlide() {
-      clearInterval(autoSlideInterval);
-      startAutoSlide();
-    }
-
-    // 슬라이더 자동 재생 시작
-    startAutoSlide();
+    // 초기 게시판 로딩
+    renderBoard();
   </script>
 </body>
 </html>
