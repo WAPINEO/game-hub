@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAME HUB - 게이머를 위한 공간</title>
+  <style>
+    :root {
+      --bg-color: #121214;
+      --card-bg: #1e1e22;
+      --card-hover: #26262b;
+      --accent-color: #ff4757;
+      --accent-green: #2ed573;
+      --text-main: #ffffff;
+      --text-sub: #a0a0a5;
+      --border-color: #2e2e35;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Pretendard', system-ui, sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.5; }
+    a { color: inherit; text-decoration: none; }
+
+    /* 상단 네비게이션 */
+    header { background-color: var(--card-bg); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+    .nav-container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { font-size: 1.3rem; font-weight: 800; color: var(--accent-color); cursor: pointer; }
+
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; height: 100%; }
+
+    .nav-links { display: flex; gap: 0.5rem; list-style: none; height: 100%; }
+    .nav-item { position: relative; display: flex; align-items: center; height: 100%; }
+    .nav-link { padding: 0 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); cursor: pointer; transition: color 0.2s; display: flex; align-items: center; height: 100%; }
+    .nav-link:hover, .nav-link.active { color: var(--accent-color); }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 170px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+      list-style: none;
+      padding: 0.5rem 0;
+      z-index: 200;
+    }
+
+    .dropdown-menu li a { display: block; padding: 0.6rem 1.2rem; font-size: 0.85rem; color: var(--text-sub); transition: background-color 0.2s, color 0.2s; cursor: pointer; }
+    .dropdown-menu li a:hover { background-color: var(--card-hover); color: var(--text-main); }
+    .nav-item:hover .dropdown-menu { display: block; }
+
+    .auth-btn {
+      background-color: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .auth-btn:hover { background-color: var(--card-hover); border-color: var(--accent-color); }
+
+    .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; min-height: 70vh; }
+    .page-view { display: none; }
+    .page-view.active { display: block; }
+
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }
+    .section-title { font-size: 1.25rem; font-weight: 700; }
+
+    /* 대형 슬라이더 */
+    .slider-container { position: relative; width: 100%; height: 380px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 2.5rem; }
+    .slider-wrapper { display: flex; width: 100%; height: 100%; transition: transform 0.4s ease-in-out; }
+    .slide { min-width: 100%; height: 100%; position: relative; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
+    .slide-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(18, 18, 20, 0.1) 0%, rgba(18, 18, 20, 0.9) 100%); }
+    .slide-content { position: relative; z-index: 10; padding: 2rem; max-width: 600px; }
+    .slide-badge { display: inline-block; padding: 0.3rem 0.6rem; background-color: var(--accent-color); color: #fff; font-size: 0.8rem; font-weight: 800; border-radius: 4px; margin-bottom: 0.8rem; }
+    .slide-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.2; }
+    .slide-desc { font-size: 0.95rem; color: #e0e0e0; margin-bottom: 1.2rem; }
+    .slide-btn { display: inline-block; padding: 0.6rem 1.2rem; background-color: var(--accent-green); color: #000; font-weight: 700; font-size: 0.85rem; border-radius: 6px; cursor: pointer; }
+    .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; background-color: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; z-index: 20; }
+    .slider-arrow.prev { left: 1rem; } .slider-arrow.next { right: 1rem; }
+    .slider-dots { position: absolute; bottom: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; z-index: 20; }
+    .dot { width: 10px; height: 10px; background-color: rgba(255, 255, 255, 0.4); border-radius: 50%; cursor: pointer; }
+    .dot.active { background-color: var(--accent-color); width: 24px; border-radius: 5px; }
+
+    /* 커뮤니티 UI 스타일 */
+    .board-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; gap: 1rem; flex-wrap: wrap; }
+    .board-category-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .tab-btn { padding: 0.4rem 0.8rem; background-color: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-sub); border-radius: 6px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+    .tab-btn.active { background-color: var(--accent-color); color: #fff; border-color: var(--accent-color); font-weight: 700; }
+    
+    .btn-primary { padding: 0.5rem 1rem; background-color: var(--accent-color); color: #fff; border: none; border-radius: 6px; font-weight: 700; font-size: 0.85rem; cursor: pointer; }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-secondary { padding: 0.5rem 1rem; background-color: transparent; border: 1px solid var(--border-color); color: var(--text-sub); border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+    .btn-secondary:hover { background-color: var(--card-hover); color: var(--text-main); }
+
+    /* 게시판 테이블 */
+    .board-table { width: 100%; border-collapse: collapse; background-color: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); font-size: 0.9rem; }
+    .board-table th, .board-table td { padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid var(--border-color); }
+    .board-table th { background-color: #18181c; color: var(--text-sub); font-weight: 600; font-size: 0.85rem; }
+    .board-table tr:hover td { background-color: var(--card-hover); cursor: pointer; }
+    .col-cat { width: 110px; }
+    .col-author { width: 120px; color: var(--text-sub); }
+    .col-date { width: 100px; color: var(--text-sub); font-size: 0.8rem; }
+    .col-views { width: 70px; color: var(--text-sub); text-align: center; }
+
+    /* 카테고리 태그 색상 */
+    .cat-badge { display: inline-block; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; background-color: #2a2a30; color: var(--text-sub); }
+    .cat-badge.freeboard { color: #70a1ff; background-color: rgba(112, 161, 255, 0.1); }
+    .cat-badge.party { color: var(--accent-green); background-color: rgba(46, 213, 115, 0.1); }
+    .cat-badge.guide { color: #eccc68; background-color: rgba(236, 204, 104, 0.1); }
+    .cat-badge.qna { color: #ff6b81; background-color: rgba(255, 107, 129, 0.1); }
+    .cat-badge.recommend { color: #a29bfe; background-color: rgba(162, 155, 254, 0.1); }
+
+    /* 글쓰기 전용 페이지 스타일 */
+    .write-container { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 2rem; max-width: 800px; margin: 0 auto; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--text-sub); font-weight: 600; }
+    .form-control { width: 100%; padding: 0.8rem; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 0.95rem; }
+    .form-control:focus { outline: 1px solid var(--accent-color); border-color: transparent; }
+    textarea.form-control { height: 200px; resize: vertical; line-height: 1.6; }
+    .form-actions { display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 1.5rem; }
+
+    /* 이미지 업로드 및 미리보기 관련 스타일 */
+    .image-preview-grid { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.8rem; }
+    .img-preview-item { width: 80px; height: 80px; border-radius: 6px; border: 1px solid var(--border-color); object-fit: cover; }
+
+    /* 미디어 임베드 및 디스플레이 영역 */
+    .post-detail-media { margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem; }
+    .post-detail-media img { max-width: 100%; border-radius: 8px; border: 1px solid var(--border-color); }
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid var(--border-color); }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+    /* 상세 보기 모달 */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 300; justify-content: center; align-items: center; }
+    .modal-overlay.active { display: flex; }
+    .modal-box { background-color: var(--card-bg); border: 1px solid var(--border-color); width: 100%; max-width: 650px; border-radius: 10px; padding: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-height: 90vh; overflow-y: auto; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+    .modal-close { background: none; border: none; color: var(--text-sub); font-size: 1.2rem; cursor: pointer; }
+    .post-detail-body { padding: 1rem 0; min-height: 80px; line-height: 1.6; color: #e0e0e0; border-top: 1px solid var(--border-color); margin-top: 1rem; white-space: pre-line; }
+
+    footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid var(--border-color); color: var(--text-sub); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <div class="logo" onclick="showPage('home')">GAME HUB</div>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li class="nav-item">
+            <a class="nav-link" id="nav-free" onclick="showPage('free')">무료 & 할인 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a onclick="showPage('free', 'epic')">🎁 에픽게임즈 무료</a></li>
+              <li><a onclick="showPage('free', 'steam')">🔥 스팀 특가 할인</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="nav-news" onclick="showPage('news')">게임뉴스 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a onclick="showPage('news', 'patch')">📢 패치노트 & 업데이트</a></li>
+              <li><a onclick="showPage('news', 'esports')">🏆 e스포츠 소식</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="nav-upcoming" onclick="showPage('upcoming')">출시예정작 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a onclick="showPage('upcoming', 'monthly')">📅 월별 신작 정보</a></li>
+              <li><a onclick="showPage('upcoming', 'trailer')">🎬 트레일러 모음</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="nav-community" onclick="showPage('community')">커뮤니티 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a onclick="showPage('community', 'freeboard')">💬 자유 게시판</a></li>
+              <li><a onclick="showPage('community', 'guide')">💡 공략 & 팁</a></li>
+              <li><a onclick="showPage('community', 'qna')">❓ 질문 & 답변</a></li>
+              <li><a onclick="showPage('community', 'recommend')">👍 게임 추천</a></li>
+              <li><a onclick="showPage('community', 'party')">👥 파티 모집 (LFG)</a></li>
+            </ul>
+          </li>
+        </ul>
+        <button class="auth-btn" onclick="alert('Supabase 연동 후 로그인 모달이 열립니다.')">로그인</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- ==================== 1. 메인 홈 화면 ==================== -->
+    <div id="page-home" class="page-view active">
+      <div class="slider-container">
+        <div class="slider-wrapper" id="sliderWrapper">
+          <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop');">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+              <span class="slide-badge" style="background-color: var(--accent-green); color: #000;">HOT DEAL</span>
+              <h2 class="slide-title">이번 주 에픽게임즈 무료 배포 타이틀</h2>
+              <p class="slide-desc">지금 바로 계정에 추가하고 평생 무료로 플레이하세요.</p>
+              <a onclick="showPage('free', 'epic')" class="slide-btn">바로 확인하기 →</a>
+            </div>
+          </div>
+          <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop');">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+              <span class="slide-badge">STEAM SALE</span>
+              <h2 class="slide-title">스팀 최고 인기 게임 최대 80% 할인</h2>
+              <p class="slide-desc">역대 최저가 갱신 게임 모음집을 놓치지 마세요.</p>
+              <a onclick="showPage('free', 'steam')" class="slide-btn">할인 목록 보기 →</a>
+            </div>
+          </div>
+        </div>
+        <button class="slider-arrow prev" onclick="moveSlide(-1)">❮</button>
+        <button class="slider-arrow next" onclick="moveSlide(1)">❯</button>
+        <div class="slider-dots">
+          <span class="dot active" onclick="currentSlide(0)"></span>
+          <span class="dot" onclick="currentSlide(1)"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 2. 무료 & 할인 화면 ==================== -->
+    <div id="page-free" class="page-view">
+      <div class="section-header"><h2 class="section-title">🎁 실시간 무료 배포 및 스팀 특가</h2></div>
+      <p style="color: var(--text-sub);">무료 및 할인 데이터 영역</p>
+    </div>
+
+    <!-- ==================== 3. 게임뉴스 화면 ==================== -->
+    <div id="page-news" class="page-view">
+      <div class="section-header"><h2 class="section-title">📢 실시간 게임 뉴스</h2></div>
+    </div>
+
+    <!-- ==================== 4. 출시예정작 화면 ==================== -->
+    <div id="page-upcoming" class="page-view">
+      <div class="section-header"><h2 class="section-title">📅 이달의 출시 예정작</h2></div>
+    </div>
+
+    <!-- ==================== 5. 커뮤니티 목록 화면 ==================== -->
+    <div id="page-community" class="page-view">
+      <div class="section-header">
+        <h2 class="section-title">💬 게이머 커뮤니티</h2>
+      </div>
+
+      <div class="board-toolbar">
+        <div class="board-category-tabs">
+          <button class="tab-btn active" id="tab-all" onclick="filterBoard('all', this)">전체</button>
+          <button class="tab-btn" id="tab-freeboard" onclick="filterBoard('freeboard', this)">자유</button>
+          <button class="tab-btn" id="tab-guide" onclick="filterBoard('guide', this)">공략&팁</button>
+          <button class="tab-btn" id="tab-qna" onclick="filterBoard('qna', this)">질문/Q&A</button>
+          <button class="tab-btn" id="tab-recommend" onclick="filterBoard('recommend', this)">게임추천</button>
+          <button class="tab-btn" id="tab-party" onclick="filterBoard('party', this)">파티모집</button>
+        </div>
+        <button class="btn-primary" onclick="showPage('community-write')">✏️ 글쓰기</button>
+      </div>
+
+      <table class="board-table">
+        <thead>
+          <tr>
+            <th class="col-cat">분류</th>
+            <th>제목</th>
+            <th class="col-author">작성자</th>
+            <th class="col-date">작성일</th>
+            <th class="col-views">조회</th>
+          </tr>
+        </thead>
+        <tbody id="boardList">
+          <!-- 게시글 로딩 -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ==================== 6. 커뮤니티 글쓰기 전용 페이지 (멀티미디어 기능 탑재) ==================== -->
+    <div id="page-community-write" class="page-view">
+      <div class="section-header">
+        <h2 class="section-title">✏️ 게시글 작성하기</h2>
+      </div>
+
+      <div class="write-container">
+        <form onsubmit="handleWritePost(event)">
+          <div class="form-group">
+            <label>카테고리 선택</label>
+            <select id="postCategory" class="form-control" required>
+              <option value="freeboard">자유 게시판</option>
+              <option value="guide">공략 & 팁</option>
+              <option value="qna">질문 & 답변</option>
+              <option value="recommend">게임 추천</option>
+              <option value="party">파티 모집 (LFG)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>작성자 닉네임</label>
+            <input type="text" id="postAuthor" class="form-control" placeholder="닉네임을 입력하세요" required>
+          </div>
+          <div class="form-group">
+            <label>글 제목</label>
+            <input type="text" id="postTitle" class="form-control" placeholder="게시글 제목을 입력하세요" required>
+          </div>
+
+          <!-- 동영상 URL 임베드 입력칸 -->
+          <div class="form-group">
+            <label>🎬 동영상 링크 (YouTube URL)</label>
+            <input type="url" id="postVideoUrl" class="form-control" placeholder="https://www.youtube.com/watch?v=... 형태의 링크 입력">
+          </div>
+
+          <!-- 사진 파일 업로드 및 미리보기 -->
+          <div class="form-group">
+            <label>🖼️ 이미지 첨부</label>
+            <input type="file" id="postImages" class="form-control" accept="image/*" multiple onchange="handleImagePreview(event)">
+            <div id="imagePreviewContainer" class="image-preview-grid"></div>
+          </div>
+
+          <div class="form-group">
+            <label>본문 내용</label>
+            <textarea id="postContent" class="form-control" placeholder="게시글 내용을 자유롭게 작성해주세요..." required></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" onclick="showPage('community')">취소</button>
+            <button type="submit" class="btn-primary" style="padding: 0.6rem 1.5rem;">작성 완료</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 글 상세보기 모달 팝업 (이미지 / 동영상 재생 지원) -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span id="detailCategory" class="cat-badge">카테고리</span>
+        <button class="modal-close" onclick="closeDetailModal()">✕</button>
+      </div>
+      <h2 id="detailTitle" style="font-size: 1.3rem; margin-bottom: 0.5rem;">글 제목</h2>
+      <div style="font-size: 0.8rem; color: var(--text-sub); display: flex; gap: 1rem;">
+        <span id="detailAuthor">작성자</span>
+        <span id="detailDate">날짜</span>
+        <span id="detailViews">조회수</span>
+      </div>
+
+      <!-- 동영상 & 사진 첨부파일 렌더링 영역 -->
+      <div id="detailMedia" class="post-detail-media"></div>
+
+      <div id="detailContent" class="post-detail-body">
+        글 내용이 들어갑니다.
+      </div>
+      <div style="text-align: right;">
+        <button class="auth-btn" onclick="closeDetailModal()">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 GAME HUB. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const categoryMap = {
+      freeboard: { name: '자유', class: 'freeboard' },
+      guide: { name: '공략&팁', class: 'guide' },
+      qna: { name: '질문', class: 'qna' },
+      recommend: { name: '추천', class: 'recommend' },
+      party: { name: '파티모집', class: 'party' }
+    };
+
+    /* 이미지 미리보기 및 임시 저장 배열 */
+    let uploadedImages = [];
+
+    let posts = [
+      { id: 1, category: 'guide', title: '[공략] 초보자를 위한 초반 필수 설정 및 꿀팁 정리', author: '공략왕', date: '2026-09-10', views: 128, content: '게임 초반 옵션 설정과 효율적인 자원 관리 팁을 정리했습니다.', videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', images: [] },
+      { id: 2, category: 'qna', title: '이 사양으로 신작 그래픽 풀옵션 구동 가능한가요?', author: '컴알못', date: '2026-09-10', views: 35, content: 'RTX 4070 사용 중인데 FHD 환경에서 60프레임 방어 되는지 궁금합니다.', videoUrl: '', images: [] },
+      { id: 3, category: 'recommend', title: '주말에 가볍게 즐기기 좋은 힐링 인디게임 3선', author: '인디러버', date: '2026-09-09', views: 89, content: '부담 없이 스토리에 몰입할 수 있는 명작 인디게임들을 추천합니다.', videoUrl: '', images: [] },
+      { id: 4, category: 'party', title: '발로란트 경쟁전 같이 달릴 분 구합니다 (3/5)', author: 'FPS마스터', date: '2026-09-09', views: 54, content: '마이크 필수, 즐겜 유저 분들 편하게 신청해 주세요!', videoUrl: '', images: [] },
+      { id: 5, category: 'freeboard', title: '스팀 이번 주 할인 목록 어떤가요?', author: '게이머A', date: '2026-09-08', views: 62, content: '할인 폭이 커서 이번 기회에 사고 싶은 게임이 많네요.', videoUrl: '', images: [] }
+    ];
+
+    let currentFilter = 'all';
+
+    /* 유튜브 URL을 Embed 가능한 URL 구조로 변환 */
+    function getYoutubeEmbedUrl(url) {
+      if (!url) return null;
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : null;
+    }
+
+    /* 이미지 파일 선택 시 미리보기 처리 */
+    function handleImagePreview(event) {
+      const files = event.target.files;
+      const container = document.getElementById('imagePreviewContainer');
+      container.innerHTML = '';
+      uploadedImages = [];
+
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedImages.push(e.target.result);
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.className = 'img-preview-item';
+          container.appendChild(img);
+        }
+        reader.readAsDataURL(file);
+      });
+    }
+
+    /* 페이지 전환 */
+    function showPage(pageId, subTarget = null) {
+      document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+      const targetPage = document.getElementById('page-' + pageId);
+      if (targetPage) targetPage.classList.add('active');
+
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      
+      if (pageId === 'community' || pageId === 'community-write') {
+        const activeNav = document.getElementById('nav-community');
+        if (activeNav) activeNav.classList.add('active');
+      } else {
+        const activeNav = document.getElementById('nav-' + pageId);
+        if (activeNav) activeNav.classList.add('active');
+      }
+
+      if (pageId === 'community') {
+        const targetTab = subTarget || 'all';
+        const btn = document.getElementById('tab-' + targetTab);
+        filterBoard(targetTab, btn);
+      }
+
+      window.scrollTo(0, 0);
+    }
+
+    /* 게시판 리스트 렌더링 */
+    function renderBoard() {
+      const listContainer = document.getElementById('boardList');
+      listContainer.innerHTML = '';
+
+      const filteredPosts = posts.filter(post => currentFilter === 'all' || post.category === currentFilter);
+
+      if (filteredPosts.length === 0) {
+        listContainer.innerHTML = `<tr><td colspan="5" style="text-align:center; color: var(--text-sub); padding: 2rem;">등록된 게시글이 없습니다.</td></tr>`;
+        return;
+      }
+
+      filteredPosts.forEach(post => {
+        const catInfo = categoryMap[post.category] || { name: '기타', class: '' };
+
+        // 멀티미디어 첨부 아이콘 표시
+        let mediaIcon = '';
+        if (post.images && post.images.length > 0) mediaIcon += ' 🖼️';
+        if (post.videoUrl) mediaIcon += ' 🎬';
+
+        const tr = document.createElement('tr');
+        tr.onclick = () => openDetailModal(post.id);
+        tr.innerHTML = `
+          <td><span class="cat-badge ${catInfo.class}">${catInfo.name}</span></td>
+          <td style="font-weight: 600;">${post.title} <span style="font-size: 0.8rem;">${mediaIcon}</span></td>
+          <td class="col-author">${post.author}</td>
+          <td class="col-date">${post.date}</td>
+          <td class="col-views">${post.views}</td>
+        `;
+        listContainer.appendChild(tr);
+      });
+    }
+
+    /* 카테고리 필터링 */
+    function filterBoard(cat, btnElement = null) {
+      currentFilter = cat;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      
+      if (btnElement) {
+        btnElement.classList.add('active');
+      } else {
+        const activeTab = document.getElementById('tab-' + cat);
+        if (activeTab) activeTab.classList.add('active');
+      }
+      renderBoard();
+    }
+
+    /* 글 등록 처리 (멀티미디어 포함) */
+    function handleWritePost(e) {
+      e.preventDefault();
+      const category = document.getElementById('postCategory').value;
+      const author = document.getElementById('postAuthor').value;
+      const title = document.getElementById('postTitle').value;
+      const videoUrl = document.getElementById('postVideoUrl').value;
+      const content = document.getElementById('postContent').value;
+
+      const newPost = {
+        id: posts.length + 1,
+        category,
+        title,
+        author,
+        date: new Date().toISOString().split('T')[0],
+        views: 0,
+        content,
+        videoUrl,
+        images: [...uploadedImages]
+      };
+
+      posts.unshift(newPost);
+
+      // 입력 폼 초기화
+      document.getElementById('postTitle').value = '';
+      document.getElementById('postVideoUrl').value = '';
+      document.getElementById('postContent').value = '';
+      document.getElementById('postImages').value = '';
+      document.getElementById('imagePreviewContainer').innerHTML = '';
+      uploadedImages = [];
+
+      alert('게시글이 성공적으로 등록되었습니다!');
+      showPage('community', category);
+    }
+
+    /* 상세 보기 모달 (멀티미디어 출력 추가) */
+    function openDetailModal(postId) {
+      const post = posts.find(p => p.id === postId);
+      if (!post) return;
+
+      post.views += 1;
+      renderBoard();
+
+      const catInfo = categoryMap[post.category] || { name: '기타', class: '' };
+
+      document.getElementById('detailCategory').textContent = catInfo.name;
+      document.getElementById('detailCategory').className = `cat-badge ${catInfo.class}`;
+      document.getElementById('detailTitle').textContent = post.title;
+      document.getElementById('detailAuthor').textContent = '작성자: ' + post.author;
+      document.getElementById('detailDate').textContent = '날짜: ' + post.date;
+      document.getElementById('detailViews').textContent = '조회수: ' + post.views;
+      document.getElementById('detailContent').textContent = post.content;
+
+      // 동영상 및 이미지 미디어 영역 동적 생성
+      const mediaContainer = document.getElementById('detailMedia');
+      mediaContainer.innerHTML = '';
+
+      // 1. 동영상 플레이어 자동 생성
+      const embedUrl = getYoutubeEmbedUrl(post.videoUrl);
+      if (embedUrl) {
+        const videoWrap = document.createElement('div');
+        videoWrap.className = 'video-container';
+        videoWrap.innerHTML = `<iframe src="${embedUrl}" allowfullscreen></iframe>`;
+        mediaContainer.appendChild(videoWrap);
+      }
+
+      // 2. 이미지 모음 출력
+      if (post.images && post.images.length > 0) {
+        post.images.forEach(imgSrc => {
+          const imgEl = document.createElement('img');
+          imgEl.src = imgSrc;
+          mediaContainer.appendChild(imgEl);
+        });
+      }
+
+      document.getElementById('detailModal').classList.add('active');
+    }
+
+    function closeDetailModal() { 
+      document.getElementById('detailModal').classList.remove('active'); 
+      // 모달을 닫았을 때 유튜브 영상 재생 중지 처리
+      document.getElementById('detailMedia').innerHTML = '';
+    }
+
+    /* 슬라이더 스크립트 */
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const wrapper = document.getElementById('sliderWrapper');
+
+    function updateSlider() {
+      if (!wrapper) return;
+      wrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
+      dots.forEach((dot, index) => dot.classList.toggle('active', index === slideIndex));
+    }
+
+    function moveSlide(step) {
+      slideIndex = (slideIndex + step + slides.length) % slides.length;
+      updateSlider();
+    }
+
+    function currentSlide(index) {
+      slideIndex = index;
+      updateSlider();
+    }
+
+    setInterval(() => { moveSlide(1); }, 4000);
+
+    renderBoard();
+  </script>
+</body>
+</html>
