@@ -74,11 +74,131 @@
     .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }
     .section-title { font-size: 1.25rem; font-weight: 700; }
 
-    .deal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
-    .deal-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
-    .deal-thumb { width: 100%; height: 110px; background-color: #2a2a30; }
-    .deal-info { padding: 0.8rem; }
-    .deal-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+    /* ==================== 대형 슬라이더 스타일 ==================== */
+    .slider-container {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      margin-bottom: 2.5rem;
+    }
+
+    .slider-wrapper {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.4s ease-in-out;
+    }
+
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    /* 이미지 위 그라데이션 어둡게 처리 */
+    .slide-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(18, 18, 20, 0.1) 0%, rgba(18, 18, 20, 0.9) 100%);
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 10;
+      padding: 2rem;
+      max-width: 600px;
+    }
+
+    .slide-badge {
+      display: inline-block;
+      padding: 0.3rem 0.6rem;
+      background-color: var(--accent-color);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      border-radius: 4px;
+      margin-bottom: 0.8rem;
+    }
+
+    .slide-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .slide-desc {
+      font-size: 0.95rem;
+      color: #e0e0e0;
+      margin-bottom: 1.2rem;
+    }
+
+    .slide-btn {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background-color: var(--accent-green);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.85rem;
+      border-radius: 6px;
+      transition: opacity 0.2s;
+    }
+    .slide-btn:hover { opacity: 0.9; }
+
+    /* 슬라이더 컨트롤 버튼 (좌/우) */
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      z-index: 20;
+      transition: background-color 0.2s;
+    }
+    .slider-arrow:hover { background-color: rgba(0, 0, 0, 0.8); }
+    .slider-arrow.prev { left: 1rem; }
+    .slider-arrow.next { right: 1rem; }
+
+    /* 슬라이더 도트 인디케이터 */
+    .slider-dots {
+      position: absolute;
+      bottom: 1rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 20;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.2s, width 0.2s;
+    }
+
+    .dot.active {
+      background-color: var(--accent-color);
+      width: 24px;
+      border-radius: 5px;
+    }
 
     footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid var(--border-color); color: var(--text-sub); font-size: 0.85rem; }
   </style>
@@ -132,9 +252,60 @@
 
   <div class="container">
 
-    <!-- ==================== 1. 메인 홈 화면 (완전 빈 영역) ==================== -->
+    <!-- ==================== 1. 메인 홈 화면 (대형 슬라이더 탑재) ==================== -->
     <div id="page-home" class="page-view active">
-      <!-- 추후 메인에 들어갈 요소를 위해 비워둔 영역입니다 -->
+      
+      <!-- 대형 메인 슬라이더 -->
+      <div class="slider-container">
+        <div class="slider-wrapper" id="sliderWrapper">
+          
+          <!-- 슬라이드 1 -->
+          <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop');">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+              <span class="slide-badge" style="background-color: var(--accent-green); color: #000;">HOT DEAL</span>
+              <h2 class="slide-title">이번 주 에픽게임즈 무료 배포 타이틀</h2>
+              <p class="slide-desc">지금 바로 계정에 추가하고 평생 무료로 플레이하세요.</p>
+              <a onclick="showPage('free', 'epic')" class="slide-btn">바로 확인하기 →</a>
+            </div>
+          </div>
+
+          <!-- 슬라이드 2 -->
+          <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop');">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+              <span class="slide-badge">STEAM SALE</span>
+              <h2 class="slide-title">스팀 최고 인기 게임 최대 80% 할인</h2>
+              <p class="slide-desc">역대 최저가 갱신 게임 모음집을 놓치지 마세요.</p>
+              <a onclick="showPage('free', 'steam')" class="slide-btn">할인 목록 보기 →</a>
+            </div>
+          </div>
+
+          <!-- 슬라이드 3 -->
+          <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=1200&auto=format&fit=crop');">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+              <span class="slide-badge" style="background-color: #3742fa;">UPCOMING</span>
+              <h2 class="slide-title">이달의 기대되는 PC / 콘솔 신작 라인업</h2>
+              <p class="slide-desc">사전예약 혜택 및 정식 출시일을 바로 확인해보세요.</p>
+              <a onclick="showPage('upcoming')" class="slide-btn">신작 달력 보기 →</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 슬라이드 컨트롤 버튼 -->
+        <button class="slider-arrow prev" onclick="moveSlide(-1)">❮</button>
+        <button class="slider-arrow next" onclick="moveSlide(1)">❯</button>
+
+        <!-- 슬라이드 인디케이터 (Dot) -->
+        <div class="slider-dots">
+          <span class="dot active" onclick="currentSlide(0)"></span>
+          <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+        </div>
+      </div>
+
     </div>
 
     <!-- ==================== 2. 무료 & 할인 화면 ==================== -->
@@ -145,22 +316,12 @@
 
       <section id="sub-epic" style="margin-bottom: 2.5rem;">
         <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent-green);">🎮 에픽게임즈 무료 배포 목록</h3>
-        <div class="deal-grid">
-          <div class="deal-card">
-            <div class="deal-thumb"></div>
-            <div class="deal-info"><div class="deal-title">에픽 무료 게임 소식</div></div>
-          </div>
-        </div>
+        <p style="color: var(--text-sub);">에픽 무료 데이터가 로딩될 영역입니다.</p>
       </section>
 
       <section id="sub-steam">
         <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #ffa502;">🔥 스팀 주말 및 정기 할인 타이틀</h3>
-        <div class="deal-grid">
-          <div class="deal-card">
-            <div class="deal-thumb"></div>
-            <div class="deal-info"><div class="deal-title">스팀 할인 게임 소식</div></div>
-          </div>
-        </div>
+        <p style="color: var(--text-sub);">스팀 할인 데이터가 로딩될 영역입니다.</p>
       </section>
     </div>
 
@@ -189,6 +350,7 @@
   </footer>
 
   <script>
+    /* 페이지 전환 스크립트 */
     function showPage(pageId, subTarget = null) {
       const pages = document.querySelectorAll('.page-view');
       pages.forEach(page => page.classList.remove('active'));
@@ -209,6 +371,46 @@
         window.scrollTo(0, 0);
       }
     }
+
+    /* 슬라이더 제어 스크립트 */
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const wrapper = document.getElementById('sliderWrapper');
+    let autoSlideInterval;
+
+    function updateSlider() {
+      wrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === slideIndex);
+      });
+    }
+
+    function moveSlide(step) {
+      slideIndex = (slideIndex + step + slides.length) % slides.length;
+      updateSlider();
+      resetAutoSlide();
+    }
+
+    function currentSlide(index) {
+      slideIndex = index;
+      updateSlider();
+      resetAutoSlide();
+    }
+
+    function startAutoSlide() {
+      autoSlideInterval = setInterval(() => {
+        moveSlide(1);
+      }, 4000); // 4초마다 자동 전환
+    }
+
+    function resetAutoSlide() {
+      clearInterval(autoSlideInterval);
+      startAutoSlide();
+    }
+
+    // 슬라이더 자동 재생 시작
+    startAutoSlide();
   </script>
 </body>
 </html>
