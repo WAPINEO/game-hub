@@ -18,15 +18,15 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Pretendard', system-ui, sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.5; }
+    body { font-family: 'Pretendard', system-ui, sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.5; overflow-x: hidden; }
     a { color: inherit; text-decoration: none; }
 
-    /* 상단 네비게이션 */
+    /* 상단 네비게이션 (모바일 대응) */
     header { background-color: var(--card-bg); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
     .nav-container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; display: flex; justify-content: space-between; align-items: center; height: 60px; }
     .logo { font-size: 1.3rem; font-weight: 800; color: var(--accent-color); cursor: pointer; }
 
-    .nav-right { display: flex; align-items: center; gap: 1.5rem; height: 100%; }
+    .nav-right { display: flex; align-items: center; gap: 1rem; height: 100%; }
 
     .nav-links { display: flex; gap: 0.5rem; list-style: none; height: 100%; }
     .nav-item { position: relative; display: flex; align-items: center; height: 100%; }
@@ -69,24 +69,24 @@
     .page-view { display: none; }
     .page-view.active { display: block; }
 
-    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 0.5rem; }
     .section-title { font-size: 1.25rem; font-weight: 700; }
 
     /* 대형 슬라이더 */
-    .slider-container { position: relative; width: 100%; height: 380px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 2.5rem; }
+    .slider-container { position: relative; width: 100%; height: 350px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 2.5rem; }
     .slider-wrapper { display: flex; width: 100%; height: 100%; transition: transform 0.4s ease-in-out; }
     .slide { min-width: 100%; height: 100%; position: relative; background-size: cover; background-position: center; display: flex; align-items: flex-end; }
     .slide-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(18, 18, 20, 0.1) 0%, rgba(18, 18, 20, 0.9) 100%); }
-    .slide-content { position: relative; z-index: 10; padding: 2rem; max-width: 600px; }
-    .slide-badge { display: inline-block; padding: 0.3rem 0.6rem; background-color: var(--accent-color); color: #fff; font-size: 0.8rem; font-weight: 800; border-radius: 4px; margin-bottom: 0.8rem; }
-    .slide-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.2; }
-    .slide-desc { font-size: 0.95rem; color: #e0e0e0; margin-bottom: 1.2rem; }
-    .slide-btn { display: inline-block; padding: 0.6rem 1.2rem; background-color: var(--accent-green); color: #000; font-weight: 700; font-size: 0.85rem; border-radius: 6px; cursor: pointer; }
-    .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; background-color: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; z-index: 20; }
-    .slider-arrow.prev { left: 1rem; } .slider-arrow.next { right: 1rem; }
-    .slider-dots { position: absolute; bottom: 1rem; right: 1.5rem; display: flex; gap: 0.5rem; z-index: 20; }
-    .dot { width: 10px; height: 10px; background-color: rgba(255, 255, 255, 0.4); border-radius: 50%; cursor: pointer; }
-    .dot.active { background-color: var(--accent-color); width: 24px; border-radius: 5px; }
+    .slide-content { position: relative; z-index: 10; padding: 1.5rem; max-width: 600px; }
+    .slide-badge { display: inline-block; padding: 0.3rem 0.6rem; background-color: var(--accent-color); color: #fff; font-size: 0.8rem; font-weight: 800; border-radius: 4px; margin-bottom: 0.6rem; }
+    .slide-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.4rem; line-height: 1.2; }
+    .slide-desc { font-size: 0.9rem; color: #e0e0e0; margin-bottom: 1rem; }
+    .slide-btn { display: inline-block; padding: 0.5rem 1rem; background-color: var(--accent-green); color: #000; font-weight: 700; font-size: 0.85rem; border-radius: 6px; cursor: pointer; }
+    .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; background-color: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; z-index: 20; }
+    .slider-arrow.prev { left: 0.5rem; } .slider-arrow.next { right: 0.5rem; }
+    .slider-dots { position: absolute; bottom: 1rem; right: 1rem; display: flex; gap: 0.4rem; z-index: 20; }
+    .dot { width: 8px; height: 8px; background-color: rgba(255, 255, 255, 0.4); border-radius: 50%; cursor: pointer; }
+    .dot.active { background-color: var(--accent-color); width: 20px; border-radius: 4px; }
 
     /* 툴바 UI */
     .board-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; gap: 1rem; flex-wrap: wrap; }
@@ -99,15 +99,16 @@
     .btn-secondary { padding: 0.5rem 1rem; background-color: transparent; border: 1px solid var(--border-color); color: var(--text-sub); border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
     .btn-secondary:hover { background-color: var(--card-hover); color: var(--text-main); }
 
-    /* 게시판 테이블 */
-    .board-table { width: 100%; border-collapse: collapse; background-color: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); font-size: 0.9rem; }
+    /* 게시판 테이블 반응형 스크롤 */
+    .table-responsive { width: 100%; overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); background-color: var(--card-bg); }
+    .board-table { width: 100%; border-collapse: collapse; min-width: 600px; font-size: 0.9rem; }
     .board-table th, .board-table td { padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid var(--border-color); }
     .board-table th { background-color: #18181c; color: var(--text-sub); font-weight: 600; font-size: 0.85rem; }
     .board-table tr:hover td { background-color: var(--card-hover); cursor: pointer; }
-    .col-cat { width: 110px; }
-    .col-author { width: 120px; color: var(--text-sub); }
-    .col-date { width: 100px; color: var(--text-sub); font-size: 0.8rem; }
-    .col-views { width: 70px; color: var(--text-sub); text-align: center; }
+    .col-cat { width: 100px; }
+    .col-author { width: 110px; color: var(--text-sub); }
+    .col-date { width: 90px; color: var(--text-sub); font-size: 0.8rem; }
+    .col-views { width: 60px; color: var(--text-sub); text-align: center; }
 
     /* 카테고리 태그 색상 */
     .cat-badge { display: inline-block; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; background-color: #2a2a30; color: var(--text-sub); }
@@ -116,52 +117,68 @@
     .cat-badge.guide { color: #eccc68; background-color: rgba(236, 204, 104, 0.1); }
     .cat-badge.qna { color: #ff6b81; background-color: rgba(255, 107, 129, 0.1); }
     .cat-badge.recommend { color: #a29bfe; background-color: rgba(162, 155, 254, 0.1); }
+    .cat-badge.epic { color: var(--accent-blue); background-color: rgba(112, 161, 255, 0.1); }
+    .cat-badge.steam { color: var(--accent-green); background-color: rgba(46, 213, 115, 0.1); }
 
-    /* 글쓰기 전용 페이지 스타일 */
-    .write-container { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 2rem; max-width: 800px; margin: 0 auto; }
+    /* 글쓰기 전용 페이지 */
+    .write-container { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 1.5rem; max-width: 800px; margin: 0 auto; }
     .form-group { margin-bottom: 1.2rem; }
     .form-group label { display: block; font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--text-sub); font-weight: 600; }
     .form-control { width: 100%; padding: 0.8rem; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); font-size: 0.95rem; }
     .form-control:focus { outline: 1px solid var(--accent-color); border-color: transparent; }
-    textarea.form-control { height: 200px; resize: vertical; line-height: 1.6; }
+    textarea.form-control { height: 180px; resize: vertical; line-height: 1.6; }
     .form-actions { display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 1.5rem; }
 
-    /* 이미지 업로드 및 미리보기 */
     .image-preview-grid { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 0.8rem; }
-    .img-preview-item { width: 80px; height: 80px; border-radius: 6px; border: 1px solid var(--border-color); object-fit: cover; }
+    .img-preview-item { width: 70px; height: 70px; border-radius: 6px; border: 1px solid var(--border-color); object-fit: cover; }
 
-    /* 미디어 임베드 영역 */
     .post-detail-media { margin-top: 1rem; display: flex; flex-direction: column; gap: 1rem; }
     .post-detail-media img { max-width: 100%; border-radius: 8px; border: 1px solid var(--border-color); }
     .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid var(--border-color); }
     .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-    /* 출시 예정작 그리드 레이아웃 */
-    .upcoming-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
-    .upcoming-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
-    .upcoming-card:hover { transform: translateY(-4px); border-color: var(--accent-color); }
-    .card-poster { width: 100%; height: 160px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
-    .card-body { padding: 1rem; }
+    /* 카드 그리드 레이아웃 (출시예정작 & 무료할인 공용) */
+    .upcoming-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; margin-top: 1rem; }
+    .upcoming-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; display: flex; flex-direction: column; }
+    .upcoming-card:hover { transform: translateY(-3px); border-color: var(--accent-color); }
+    .card-poster { width: 100%; height: 150px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
+    .card-body { padding: 1rem; display: flex; flex-direction: column; flex: 1; }
     .card-tags { display: flex; gap: 0.3rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
     .platform-tag { font-size: 0.7rem; padding: 0.15rem 0.4rem; background-color: #2e2e35; color: var(--text-main); border-radius: 4px; }
     .d-day-badge { font-size: 0.75rem; font-weight: 800; padding: 0.15rem 0.4rem; background-color: var(--accent-color); color: #fff; border-radius: 4px; }
-    .card-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .card-desc { font-size: 0.8rem; color: var(--text-sub); margin-bottom: 0.8rem; height: 36px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .card-date { font-size: 0.85rem; color: var(--accent-green); font-weight: 600; margin-bottom: 0.8rem; }
-    .card-btn-group { display: flex; gap: 0.5rem; }
+    .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .card-desc { font-size: 0.8rem; color: var(--text-sub); margin-bottom: 0.8rem; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-date { font-size: 0.8rem; color: var(--accent-green); font-weight: 600; margin-bottom: 0.8rem; }
+    .card-btn-group { display: flex; gap: 0.5rem; margin-top: auto; }
     .card-btn { flex: 1; padding: 0.45rem; font-size: 0.8rem; border-radius: 6px; border: 1px solid var(--border-color); background: transparent; color: var(--text-main); cursor: pointer; text-align: center; font-weight: 600; transition: background-color 0.2s; }
     .card-btn:hover { background-color: var(--card-hover); border-color: var(--accent-color); }
     .card-btn.primary-btn { background-color: var(--accent-color); border-color: var(--accent-color); color: #fff; }
 
     /* 상세 보기 모달 */
-    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 300; justify-content: center; align-items: center; }
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 300; justify-content: center; align-items: center; padding: 1rem; }
     .modal-overlay.active { display: flex; }
-    .modal-box { background-color: var(--card-bg); border: 1px solid var(--border-color); width: 100%; max-width: 680px; border-radius: 10px; padding: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-height: 90vh; overflow-y: auto; }
-    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+    .modal-box { background-color: var(--card-bg); border: 1px solid var(--border-color); width: 100%; max-width: 650px; border-radius: 10px; padding: 1.2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-height: 90vh; overflow-y: auto; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
     .modal-close { background: none; border: none; color: var(--text-sub); font-size: 1.2rem; cursor: pointer; }
-    .post-detail-body { padding: 1rem 0; min-height: 60px; line-height: 1.6; color: #e0e0e0; border-top: 1px solid var(--border-color); margin-top: 1rem; white-space: pre-line; }
+    .post-detail-body { padding: 0.8rem 0; min-height: 50px; line-height: 1.6; color: #e0e0e0; border-top: 1px solid var(--border-color); margin-top: 0.8rem; white-space: pre-line; font-size: 0.95rem; }
 
-    footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid var(--border-color); color: var(--text-sub); font-size: 0.85rem; }
+    footer { text-align: center; padding: 2rem 1rem; border-top: 1px solid var(--border-color); color: var(--text-sub); font-size: 0.8rem; }
+
+    /* 모바일 맞춤 미디어 쿼리 최적화 */
+    @media (max-width: 768px) {
+      .nav-links { display: none; } /* 모바일 간소화 메뉴 영역 필요시 확장 가능 */
+      .nav-container { height: 50px; }
+      .logo { font-size: 1.1rem; }
+      .slider-container { height: 240px; margin-bottom: 1.5rem; }
+      .slide-content { padding: 1rem; }
+      .slide-title { font-size: 1.2rem; }
+      .slide-desc { display: none; }
+      .container { margin: 1rem auto; padding: 0 0.8rem; }
+      .upcoming-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.8rem; }
+      .card-poster { height: 120px; }
+      .card-body { padding: 0.8rem; }
+      .card-title { font-size: 0.9rem; }
+    }
   </style>
 </head>
 <body>
@@ -234,10 +251,17 @@
       </div>
     </div>
 
-    <!-- ==================== 2. 무료 & 할인 화면 ==================== -->
+    <!-- ==================== 2. 무료 & 할인 자동 연동 화면 ==================== -->
     <div id="page-free" class="page-view">
-      <div class="section-header"><h2 class="section-title">🎁 실시간 무료 배포 및 스팀 특가</h2></div>
-      <p style="color: var(--text-sub);">무료 및 할인 데이터 영역입니다.</p>
+      <div class="section-header">
+        <h2 class="section-title">🎁 실시간 무료 배포 및 스팀 특가</h2>
+        <div class="board-category-tabs">
+          <button class="tab-btn active" onclick="filterFree('all', this)">전체</button>
+          <button class="tab-btn" onclick="filterFree('epic', this)">에픽 무료</button>
+          <button class="tab-btn" onclick="filterFree('steam', this)">스팀 할인</button>
+        </div>
+      </div>
+      <div id="freeGrid" class="upcoming-grid"></div>
     </div>
 
     <!-- ==================== 3. 출시예정작 화면 ==================== -->
@@ -247,11 +271,11 @@
       </div>
       <div class="board-toolbar">
         <div class="board-category-tabs">
-          <button class="tab-btn active" id="tab-upcoming-all" onclick="filterUpcoming('all', this)">전체 플랫폼</button>
-          <button class="tab-btn" id="tab-upcoming-PC" onclick="filterUpcoming('PC', this)">PC (Steam)</button>
-          <button class="tab-btn" id="tab-upcoming-PS5" onclick="filterUpcoming('PS5', this)">PS5</button>
-          <button class="tab-btn" id="tab-upcoming-Xbox" onclick="filterUpcoming('Xbox', this)">Xbox</button>
-          <button class="tab-btn" id="tab-upcoming-Switch" onclick="filterUpcoming('Switch', this)">Switch</button>
+          <button class="tab-btn active" onclick="filterUpcoming('all', this)">전체 플랫폼</button>
+          <button class="tab-btn" onclick="filterUpcoming('PC', this)">PC</button>
+          <button class="tab-btn" onclick="filterUpcoming('PS5', this)">PS5</button>
+          <button class="tab-btn" onclick="filterUpcoming('Xbox', this)">Xbox</button>
+          <button class="tab-btn" onclick="filterUpcoming('Switch', this)">Switch</button>
         </div>
       </div>
       <div id="upcomingGrid" class="upcoming-grid"></div>
@@ -261,6 +285,7 @@
     <div id="page-community" class="page-view">
       <div class="section-header">
         <h2 class="section-title">💬 게이머 커뮤니티</h2>
+        <button class="btn-primary" onclick="navigateTo('community-write')">✏️ 글쓰기</button>
       </div>
 
       <div class="board-toolbar">
@@ -272,21 +297,22 @@
           <button class="tab-btn" id="tab-recommend" onclick="filterBoard('recommend', this)">게임추천</button>
           <button class="tab-btn" id="tab-party" onclick="filterBoard('party', this)">파티모집</button>
         </div>
-        <button class="btn-primary" onclick="navigateTo('community-write')">✏️ 글쓰기</button>
       </div>
 
-      <table class="board-table">
-        <thead>
-          <tr>
-            <th class="col-cat">분류</th>
-            <th>제목</th>
-            <th class="col-author">작성자</th>
-            <th class="col-date">작성일</th>
-            <th class="col-views">조회</th>
-          </tr>
-        </thead>
-        <tbody id="boardList"></tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="board-table">
+          <thead>
+            <tr>
+              <th class="col-cat">분류</th>
+              <th>제목</th>
+              <th class="col-author">작성자</th>
+              <th class="col-date">작성일</th>
+              <th class="col-views">조회</th>
+            </tr>
+          </thead>
+          <tbody id="boardList"></tbody>
+        </table>
+      </div>
     </div>
 
     <!-- ==================== 5. 커뮤니티 글쓰기 ==================== -->
@@ -315,25 +341,22 @@
             <label>글 제목</label>
             <input type="text" id="postTitle" class="form-control" placeholder="게시글 제목을 입력하세요" required>
           </div>
-
           <div class="form-group">
             <label>🎬 동영상 링크 (YouTube URL)</label>
-            <input type="url" id="postVideoUrl" class="form-control" placeholder="https://www.youtube.com/watch?v=... 형태의 링크 입력">
+            <input type="url" id="postVideoUrl" class="form-control" placeholder="유튜브 링크 입력">
           </div>
-
           <div class="form-group">
             <label>🖼️ 이미지 첨부</label>
             <input type="file" id="postImages" class="form-control" accept="image/*" multiple onchange="handleImagePreview(event)">
             <div id="imagePreviewContainer" class="image-preview-grid"></div>
           </div>
-
           <div class="form-group">
             <label>본문 내용</label>
-            <textarea id="postContent" class="form-control" placeholder="게시글 내용을 자유롭게 작성해주세요..." required></textarea>
+            <textarea id="postContent" class="form-control" placeholder="내용을 작성해주세요..." required></textarea>
           </div>
           <div class="form-actions">
             <button type="button" class="btn-secondary" onclick="navigateTo('community')">취소</button>
-            <button type="submit" class="btn-primary" style="padding: 0.6rem 1.5rem;">작성 완료</button>
+            <button type="submit" class="btn-primary">작성 완료</button>
           </div>
         </form>
       </div>
@@ -348,7 +371,7 @@
         <span id="detailCategory" class="cat-badge">카테고리</span>
         <button class="modal-close" onclick="closeDetailModal()">✕</button>
       </div>
-      <h2 id="detailTitle" style="font-size: 1.3rem; margin-bottom: 0.5rem;">글 제목</h2>
+      <h2 id="detailTitle" style="font-size: 1.2rem; margin-bottom: 0.5rem;">글 제목</h2>
       <div style="font-size: 0.8rem; color: var(--text-sub); display: flex; gap: 1rem;">
         <span id="detailAuthor">작성자</span>
         <span id="detailDate">날짜</span>
@@ -356,9 +379,8 @@
       </div>
 
       <div id="detailMedia" class="post-detail-media"></div>
-
       <div id="detailContent" class="post-detail-body"></div>
-      <div style="text-align: right;">
+      <div style="text-align: right; margin-top: 1rem;">
         <button class="auth-btn" onclick="closeDetailModal()">닫기</button>
       </div>
     </div>
@@ -378,19 +400,66 @@
     };
 
     let uploadedImages = [];
+    let currentFreeFilter = 'all';
+
+    // 자동 연동 무료 & 할인 데이터 세트
+    const freeGamesList = [
+      {
+        id: 1,
+        type: 'epic',
+        badge: '에픽 무료',
+        badgeClass: 'epic',
+        title: '데스 스트랜딩 디렉터스 컷',
+        desc: '전설적인 배달부 샘 포터 브리지스가 되어 무너진 세계를 연결하는 오픈월드 액션.',
+        price: '무료 배포 (~09/17)',
+        poster: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop',
+        linkText: '에픽에서 받기'
+      },
+      {
+        id: 2,
+        type: 'epic',
+        badge: '에픽 무료',
+        badgeClass: 'epic',
+        title: '택틱스 오그리 리본 (스페셜 패키지)',
+        desc: '전략 시뮬레이션 RPG의 명작. 운명을 결정하는 전술 전투의 재미.',
+        price: '무료 배포 (~09/17)',
+        poster: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600&auto=format&fit=crop',
+        linkText: '에픽에서 받기'
+      },
+      {
+        id: 3,
+        type: 'steam',
+        badge: '스팀 75% 할인',
+        badgeClass: 'steam',
+        title: '사이버펑크 2077',
+        desc: '거대한 메트로폴리스 나이트 시티를 배경으로 한 오픈월드 액션 어드벤처 RPG.',
+        price: '16,250원 (75% 할인)',
+        poster: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600&auto=format&fit=crop',
+        linkText: '스팀 특가 보기'
+      },
+      {
+        id: 4,
+        type: 'steam',
+        badge: '스팀 80% 할인',
+        badgeClass: 'steam',
+        title: '위쳐 3: 와일드 헌트 컴플리트 에디션',
+        desc: '괴물 사냥꾼 게롤트의 대서사시를 담은 역대급 RPG 명작.',
+        price: '10,980원 (80% 할인)',
+        poster: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop',
+        linkText: '스팀 특가 보기'
+      }
+    ];
 
     let posts = [
       { id: 1, category: 'guide', title: '[공략] 초보자를 위한 초반 필수 설정 및 꿀팁 정리', author: '공략왕', date: '2026-09-10', views: 128, content: '게임 초반 옵션 설정과 효율적인 자원 관리 팁을 정리했습니다.', videoUrl: 'https://www.youtube.com/watch?v=jQdFe0Wiugw', images: [] },
-      { id: 2, category: 'qna', title: '이 사양으로 신작 그래픽 풀옵션 구동 가능한가요?', author: '컴알못', date: '2026-09-10', views: 35, content: 'RTX 4070 사용 중인데 FHD 환경에서 60프레임 방어 되는지 궁금합니다.', videoUrl: '', images: [] },
-      { id: 3, category: 'recommend', title: '주말에 가볍게 즐기기 좋은 힐링 인디게임 3선', author: '인디러버', date: '2026-09-09', views: 89, content: '부담 없이 스토리에 몰입할 수 있는 명작 인디게임들을 추천합니다.', videoUrl: '', images: [] },
-      { id: 4, category: 'party', title: '발로란트 경쟁전 같이 달릴 분 구합니다 (3/5)', author: 'FPS마스터', date: '2026-09-09', views: 54, content: '마이크 필수, 즐겜 유저 분들 편하게 신청해 주세요!', videoUrl: '', images: [] }
+      { id: 2, category: 'qna', title: '이 사양으로 신작 그래픽 풀옵션 구동 가능한가요?', author: '컴알못', date: '2026-09-10', views: 35, content: 'RTX 4070 사용 중인데 FHD 환경에서 60프레임 방어 되는지 궁금합니다.', videoUrl: '', images: [] }
     ];
 
     const upcomingGames = [
       {
         id: 1,
         title: '몬스터 헌터 와일즈',
-        desc: '캡콤의 차세대 몬스터 헌터 시리즈. 새로운 생태계와 역동적인 수냥 액션.',
+        desc: '캡콤의 차세대 몬스터 헌터 시리즈. 새로운 생태계와 역동적인 수렵 액션.',
         date: '2026-09-15',
         platforms: ['PC', 'PS5', 'Xbox'],
         poster: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop',
@@ -398,26 +467,8 @@
       },
       {
         id: 2,
-        title: '더 블러드 오브 던워커',
-        desc: '14세기 유럽 배경 다크 판타지 오픈월드 RPG. 낮과 밤에 따라 능력이 변하는 뱀파이어 액션.',
-        date: '2026-09-20',
-        platforms: ['PC', 'PS5', 'Xbox'],
-        poster: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=lkC75FzExf0'
-      },
-      {
-        id: 3,
-        title: '마블 울버린 (Marvel\'s Wolverine)',
-        desc: '인섬니악 게임즈가 제작하는 PS5 독점 신작. 울버린의 본능적인 클로 액션 어드벤처.',
-        date: '2026-09-28',
-        platforms: ['PS5'],
-        poster: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=gX461wBRQVs'
-      },
-      {
-        id: 4,
         title: 'Grand Theft Auto VI (GTA 6)',
-        desc: '락스타 게임즈가 선보이는 역대 최대 규모 오픈월드 차기작. 바이스 시티 기반 신작.',
+        desc: '락스타 게임즈가 선보이는 역대 최대 규모 오픈월드 차기작.',
         date: '2026-11-19',
         platforms: ['PS5', 'Xbox'],
         poster: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop',
@@ -434,7 +485,6 @@
       window.location.hash = hash;
     }
 
-    /* URL 라우팅 감지 처리 */
     function handleRouting() {
       const hash = window.location.hash.replace('#', '') || 'home';
       const parts = hash.split('/');
@@ -451,20 +501,15 @@
       }
 
       document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-      
-      if (pageId.startsWith('community')) {
-        const activeNav = document.getElementById('nav-community');
-        if (activeNav) activeNav.classList.add('active');
-      } else {
-        const activeNav = document.getElementById('nav-' + pageId);
-        if (activeNav) activeNav.classList.add('active');
-      }
+      const activeNav = document.getElementById('nav-' + (pageId.startsWith('community') ? 'community' : pageId));
+      if (activeNav) activeNav.classList.add('active');
 
       if (pageId === 'community') {
-        const targetTab = subTarget || 'all';
-        filterBoard(targetTab, null, false);
+        filterBoard(subTarget || 'all', null, false);
       } else if (pageId === 'upcoming') {
         renderUpcoming();
+      } else if (pageId === 'free') {
+        renderFreeGames(subTarget || 'all');
       }
 
       window.scrollTo(0, 0);
@@ -472,6 +517,42 @@
 
     window.addEventListener('hashchange', handleRouting);
     window.addEventListener('DOMContentLoaded', handleRouting);
+
+    function renderFreeGames(type = 'all') {
+      currentFreeFilter = type;
+      const container = document.getElementById('freeGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const filtered = freeGamesList.filter(item => type === 'all' || item.type === type);
+
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'upcoming-card';
+        card.innerHTML = `
+          <img src="${item.poster}" class="card-poster" alt="${item.title}">
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="cat-badge ${item.badgeClass}">${item.badge}</span>
+            </div>
+            <div class="card-title">${item.title}</div>
+            <div class="card-desc">${item.desc}</div>
+            <div class="card-date">🏷️ ${item.price}</div>
+            <div class="card-btn-group">
+              <button class="card-btn primary-btn" onclick="alert('🎮 [${item.title}] 상세 정보 창으로 이동합니다.')">${item.linkText}</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterFree(type, btn) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderFreeGames(type);
+    }
 
     function getYoutubeEmbedUrl(url) {
       if (!url) return null;
@@ -532,19 +613,13 @@
 
     function filterBoard(cat, btnElement = null, updateHash = true) {
       currentFilter = cat;
-
       if (updateHash) {
         window.location.hash = `community/${cat}`;
         return;
       }
-
       document.querySelectorAll('#page-community .tab-btn').forEach(btn => btn.classList.remove('active'));
-      
       const activeTab = document.getElementById('tab-' + cat);
-      if (activeTab) {
-        activeTab.classList.add('active');
-      }
-
+      if (activeTab) activeTab.classList.add('active');
       renderBoard();
     }
 
@@ -569,27 +644,17 @@
       };
 
       posts.unshift(newPost);
-
-      document.getElementById('postTitle').value = '';
-      document.getElementById('postVideoUrl').value = '';
-      document.getElementById('postContent').value = '';
-      document.getElementById('postImages').value = '';
-      document.getElementById('imagePreviewContainer').innerHTML = '';
-      uploadedImages = [];
-
-      alert('게시글이 성공적으로 등록되었습니다!');
+      alert('게시글이 등록되었습니다!');
       navigateTo('community', category);
     }
 
     function openDetailModal(postId) {
       const post = posts.find(p => p.id === postId);
       if (!post) return;
-
       post.views += 1;
       renderBoard();
 
       const catInfo = categoryMap[post.category] || { name: '기타', class: '' };
-
       document.getElementById('detailCategory').textContent = catInfo.name;
       document.getElementById('detailCategory').className = `cat-badge ${catInfo.class}`;
       document.getElementById('detailTitle').textContent = post.title;
@@ -603,33 +668,24 @@
 
       const embedUrl = getYoutubeEmbedUrl(post.videoUrl);
       if (embedUrl) {
-        const videoWrap = document.createElement('div');
-        videoWrap.className = 'video-container';
-        videoWrap.innerHTML = `<iframe src="${embedUrl}" allowfullscreen></iframe>`;
-        mediaContainer.appendChild(videoWrap);
+        mediaContainer.innerHTML += `<div class="video-container"><iframe src="${embedUrl}" allowfullscreen></iframe></div>`;
       }
-
       if (post.images && post.images.length > 0) {
-        post.images.forEach(imgSrc => {
-          const imgEl = document.createElement('img');
-          imgEl.src = imgSrc;
-          mediaContainer.appendChild(imgEl);
-        });
+        post.images.forEach(img => { mediaContainer.innerHTML += `<img src="${img}">`; });
       }
 
       document.getElementById('detailModal').classList.add('active');
     }
 
-    function closeDetailModal() { 
-      document.getElementById('detailModal').classList.remove('active'); 
+    function closeDetailModal() {
+      document.getElementById('detailModal').classList.remove('active');
       document.getElementById('detailMedia').innerHTML = '';
     }
 
     function getDDay(targetDate) {
       const today = new Date();
       const target = new Date(targetDate);
-      const diffTime = target - today;
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffDays = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
       return diffDays > 0 ? `D-${diffDays}` : (diffDays === 0 ? 'D-Day' : '출시 완료');
     }
 
@@ -638,30 +694,22 @@
       if (!container) return;
       container.innerHTML = '';
 
-      const filtered = upcomingGames.filter(game => 
-        currentPlatform === 'all' || game.platforms.includes(currentPlatform)
-      );
-
+      const filtered = upcomingGames.filter(game => currentPlatform === 'all' || game.platforms.includes(currentPlatform));
       filtered.forEach(game => {
         const card = document.createElement('div');
         card.className = 'upcoming-card';
-
-        const platformBadges = game.platforms.map(p => `<span class="platform-tag">${p}</span>`).join('');
-        const dDay = getDDay(game.date);
-
         card.innerHTML = `
           <img src="${game.poster}" class="card-poster" alt="${game.title}">
           <div class="card-body">
             <div class="card-tags">
-              <span class="d-day-badge">${dDay}</span>
-              ${platformBadges}
+              <span class="d-day-badge">${getDDay(game.date)}</span>
+              ${game.platforms.map(p => `<span class="platform-tag">${p}</span>`).join('')}
             </div>
             <div class="card-title">${game.title}</div>
             <div class="card-desc">${game.desc}</div>
             <div class="card-date">🗓️ ${game.date} 출시 예정</div>
             <div class="card-btn-group">
-              ${game.videoUrl ? `<button class="card-btn primary-btn" onclick="playTrailer('${game.videoUrl}', '${game.title}')">🎬 트레일러</button>` : ''}
-              <button class="card-btn" onclick="alert('⭐ [${game.title}] 관심 게임으로 등록되었습니다!')">⭐ 찜하기</button>
+              <button class="card-btn primary-btn" onclick="alert('⭐ [${game.title}] 찜 완료!')">⭐ 찜하기</button>
             </div>
           </div>
         `;
@@ -671,31 +719,11 @@
 
     function filterUpcoming(platform, btn) {
       currentPlatform = platform;
-      const parent = btn.parentElement;
-      parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       renderUpcoming();
     }
 
-    function playTrailer(url, title = '게임 트레일러') {
-      const embedUrl = getYoutubeEmbedUrl(url);
-      if (!embedUrl) return;
-
-      document.getElementById('detailCategory').textContent = '🎬 공식 트레일러';
-      document.getElementById('detailCategory').className = 'cat-badge recommend';
-      document.getElementById('detailTitle').textContent = title;
-      document.getElementById('detailAuthor').textContent = 'GAME HUB TV';
-      document.getElementById('detailDate').textContent = 'HD 1080p';
-      document.getElementById('detailViews').textContent = '';
-      document.getElementById('detailContent').textContent = '';
-
-      const mediaContainer = document.getElementById('detailMedia');
-      mediaContainer.innerHTML = `<div class="video-container"><iframe src="${embedUrl}" allowfullscreen></iframe></div>`;
-
-      document.getElementById('detailModal').classList.add('active');
-    }
-
-    /* 메인 슬라이더 스크립트 */
     let slideIndex = 0;
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
