@@ -1,1 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAME HUB - 게이머를 위한 공간</title>
+  <style>
+    :root {
+      --bg-color: #121214;
+      --card-bg: #1e1e22;
+      --card-hover: #26262b;
+      --accent-color: #ff4757;
+      --accent-green: #2ed573;
+      --text-main: #ffffff;
+      --text-sub: #a0a0a5;
+      --border-color: #2e2e35;
+    }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Pretendard', system-ui, sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.5; }
+    a { color: inherit; text-decoration: none; }
+
+    /* 상단 네비게이션 */
+    header { background-color: var(--card-bg); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+    .nav-container { max-width: 1100px; margin: 0 auto; padding: 0 1rem; display: flex; justify-content: space-between; align-items: center; height: 60px; }
+    .logo { font-size: 1.3rem; font-weight: 800; color: var(--accent-color); cursor: pointer; }
+
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; height: 100%; }
+
+    /* GNB 네비게이션 및 드롭다운 */
+    .nav-links { display: flex; gap: 0.5rem; list-style: none; height: 100%; }
+    .nav-item { position: relative; display: flex; align-items: center; height: 100%; }
+    .nav-link { padding: 0 0.8rem; font-size: 0.95rem; font-weight: 600; color: var(--text-main); cursor: pointer; transition: color 0.2s; display: flex; align-items: center; height: 100%; }
+    .nav-link:hover, .nav-link.active { color: var(--accent-color); }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 170px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+      list-style: none;
+      padding: 0.5rem 0;
+      z-index: 200;
+    }
+
+    .dropdown-menu li a { display: block; padding: 0.6rem 1.2rem; font-size: 0.85rem; color: var(--text-sub); transition: background-color 0.2s, color 0.2s; cursor: pointer; }
+    .dropdown-menu li a:hover { background-color: var(--card-hover); color: var(--text-main); }
+    .nav-item:hover .dropdown-menu { display: block; }
+
+    /* 로그인 버튼 */
+    .auth-btn {
+      background-color: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .auth-btn:hover { background-color: var(--card-hover); border-color: var(--accent-color); }
+
+    /* 레이아웃 */
+    .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; min-height: 70vh; }
+    .page-view { display: none; }
+    .page-view.active { display: block; }
+
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }
+    .section-title { font-size: 1.25rem; font-weight: 700; }
+
+    .deal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .deal-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
+    .deal-thumb { width: 100%; height: 110px; background-color: #2a2a30; }
+    .deal-info { padding: 0.8rem; }
+    .deal-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+
+    footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid var(--border-color); color: var(--text-sub); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 네비게이션 바 -->
+  <header>
+    <div class="nav-container">
+      <div class="logo" onclick="showPage('home')">GAME HUB</div>
+      
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li class="nav-item">
+            <a class="nav-link" id="nav-free" onclick="showPage('free')">무료 & 할인 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a onclick="showPage('free', 'epic')">🎁 에픽게임즈 무료</a></li>
+              <li><a onclick="showPage('free', 'steam')">🔥 스팀 특가 할인</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="nav-news" onclick="showPage('news')">게임뉴스 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a onclick="showPage('news', 'patch')">📢 패치노트 & 업데이트</a></li>
+              <li><a onclick="showPage('news', 'esports')">🏆 e스포츠 소식</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="nav-upcoming" onclick="showPage('upcoming')">출시예정작 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a onclick="showPage('upcoming', 'monthly')">📅 월별 신작 정보</a></li>
+              <li><a onclick="showPage('upcoming', 'trailer')">🎬 트레일러 모음</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="nav-community" onclick="showPage('community')">커뮤니티 ▾</a>
+            <ul class="dropdown-menu">
+              <li><a onclick="showPage('community', 'freeboard')">💬 자유 게시판</a></li>
+              <li><a onclick="showPage('community', 'party')">👥 파티 모집 (LFG)</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <button class="auth-btn" onclick="alert('Supabase 연동 후 로그인 모달이 열립니다.')">로그인</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- ==================== 1. 메인 홈 화면 (완전 빈 영역) ==================== -->
+    <div id="page-home" class="page-view active">
+      <!-- 추후 메인에 들어갈 요소를 위해 비워둔 영역입니다 -->
+    </div>
+
+    <!-- ==================== 2. 무료 & 할인 화면 ==================== -->
+    <div id="page-free" class="page-view">
+      <div class="section-header">
+        <h2 class="section-title">🎁 실시간 무료 배포 및 스팀 특가</h2>
+      </div>
+
+      <section id="sub-epic" style="margin-bottom: 2.5rem;">
+        <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: var(--accent-green);">🎮 에픽게임즈 무료 배포 목록</h3>
+        <div class="deal-grid">
+          <div class="deal-card">
+            <div class="deal-thumb"></div>
+            <div class="deal-info"><div class="deal-title">에픽 무료 게임 소식</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sub-steam">
+        <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #ffa502;">🔥 스팀 주말 및 정기 할인 타이틀</h3>
+        <div class="deal-grid">
+          <div class="deal-card">
+            <div class="deal-thumb"></div>
+            <div class="deal-info"><div class="deal-title">스팀 할인 게임 소식</div></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ==================== 3. 게임뉴스 화면 ==================== -->
+    <div id="page-news" class="page-view">
+      <div class="section-header"><h2 class="section-title">📢 실시간 게임 뉴스</h2></div>
+      <p style="color: var(--text-sub);">최신 패치노트 및 e스포츠 소식입니다.</p>
+    </div>
+
+    <!-- ==================== 4. 출시예정작 화면 ==================== -->
+    <div id="page-upcoming" class="page-view">
+      <div class="section-header"><h2 class="section-title">📅 이달의 출시 예정작</h2></div>
+      <p style="color: var(--text-sub);">월별 신작 라인업 정보입니다.</p>
+    </div>
+
+    <!-- ==================== 5. 커뮤니티 화면 ==================== -->
+    <div id="page-community" class="page-view">
+      <div class="section-header"><h2 class="section-title">💬 게이머 커뮤니티</h2></div>
+      <p style="color: var(--text-sub);">자유 게시판 및 파티 모집 공간입니다.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2026 GAME HUB. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function showPage(pageId, subTarget = null) {
+      const pages = document.querySelectorAll('.page-view');
+      pages.forEach(page => page.classList.remove('active'));
+
+      const targetPage = document.getElementById('page-' + pageId);
+      if (targetPage) targetPage.classList.add('active');
+
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeNav = document.getElementById('nav-' + pageId);
+      if (activeNav) activeNav.classList.add('active');
+
+      if (subTarget === 'epic') {
+        document.getElementById('sub-epic').scrollIntoView({ behavior: 'smooth' });
+      } else if (subTarget === 'steam') {
+        document.getElementById('sub-steam').scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }
+  </script>
+</body>
+</html>
