@@ -1,1 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAME HUB - 게이머를 위한 공간</title>
+  <style>
+    :root {
+      --bg-color: #121214;
+      --card-bg: #1e1e22;
+      --accent-color: #ff4757;
+      --text-main: #ffffff;
+      --text-sub: #a0a0a5;
+      --border-color: #2e2e35;
+    }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Pretendard', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* Header */
+    header {
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-size: 1.4rem; font-weight: bold; color: var(--accent-color); }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; font-size: 0.95rem; }
+    .nav-links a:hover { color: var(--accent-color); }
+
+    /* Main Layout */
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #2a5298, #1e3c72);
+      border-radius: 12px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .hero p { color: #e0e0e0; font-size: 1rem; }
+
+    /* Section & Cards */
+    .section-title {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 3rem;
+    }
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.2rem;
+      transition: transform 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); }
+    .card-badge {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: white;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+    .card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .card p { font-size: 0.85rem; color: var(--text-sub); }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-sub);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 네비게이션 -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">GAME HUB</div>
+      <ul class="nav-links">
+        <li><a href="#news">뉴스</a></li>
+        <li><a href="#free">무료게임</a></li>
+        <li><a href="#community">커뮤니티</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- 메인 히어로 섹션 -->
+    <section class="hero">
+      <h1>🎮 게이머를 위한 종합 정보 허브</h1>
+      <p>실시간 게임 뉴스부터 무료 배포 소식까지 한눈에 확인하세요.</p>
+    </section>
+
+    <!-- 1. 최신 소식 섹션 -->
+    <div class="section-title" id="news">
+      <h2>📢 최신 게임 소식</h2>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <span class="card-badge">NEWS</span>
+        <h3>새로운 게임 업데이트 소식</h3>
+        <p>여기에 게임 뉴스 요약 내용이 들어갑니다.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge">NEWS</span>
+        <h3>이번 주 신작 라인업 공개</h3>
+        <p>여기에 게임 뉴스 요약 내용이 들어갑니다.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge">NEWS</span>
+        <h3>e스포츠 대회 최신 결과</h3>
+        <p>여기에 게임 뉴스 요약 내용이 들어갑니다.</p>
+      </div>
+    </div>
+
+    <!-- 2. 무료 배포 섹션 -->
+    <div class="section-title" id="free">
+      <h2>🎁 무료 배포 & 할인</h2>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <span class="card-badge" style="background-color: #2ed573;">FREE</span>
+        <h3>에픽게임즈 이번 주 무료 게임</h3>
+        <p>지금 바로 다운로드 가능한 무료 정품 게임 정보입니다.</p>
+      </div>
+      <div class="card">
+        <span class="card-badge" style="background-color: #ffa502;">DEAL</span>
+        <h3>스팀 주말 특가 할인</h3>
+        <p>인기 타이틀 최대 80% 할인 진행 중.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <footer>
+    <p>&copy; 2026 GAME HUB. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
