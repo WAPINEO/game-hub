@@ -110,7 +110,7 @@
     .news-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; line-height: 1.4; color: var(--text-main); }
     .news-snippet { font-size: 0.85rem; color: var(--text-sub); line-height: 1.5; margin-bottom: 1rem; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     .news-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 0.8rem; margin-top: auto; }
-    .news-link-btn { font-size: 0.8rem; font-weight: 700; color: var(--accent-color); cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem; }
+    .news-link-btn { font-size: 0.85rem; font-weight: 700; color: var(--accent-color); cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem; }
     .news-link-btn:hover { text-decoration: underline; }
 
     /* 게시판 테이블 */
@@ -263,7 +263,7 @@
       <p style="color: var(--text-sub);">무료 및 할인 데이터 영역입니다.</p>
     </div>
 
-    <!-- ==================== 3. 실시간 게임뉴스 화면 (수정 완료) ==================== -->
+    <!-- ==================== 3. 실시간 게임뉴스 화면 ==================== -->
     <div id="page-news" class="page-view">
       <div class="section-header">
         <h2 class="section-title">📡 실시간 게임 뉴스</h2>
@@ -469,7 +469,7 @@
       }
     ];
 
-    /* 수정된 실시간 게임 뉴스 수집 데이터 (정확한 출처 및 원본 URL 수정) */
+    /* 뉴스 데이터 (URL 텍스트 노출 제거 및 원문 링크 속성 정상화) */
     let fetchedNews = [
       {
         id: 101,
@@ -486,10 +486,10 @@
         category: 'esports',
         source: 'LoL eSports 공식',
         title: '2026 리그 오브 레전드 월드 챔피언십 결승전 일정 및 티켓 예매 안내',
-        snippet: '올해 롤드컵 결승전 일정과 참가 팀 리스트, 생중계 채널 정보가 공식 개시되었습니다.',
+        snippet: '올해 롤드컵 결승전 일정과 참가 팀 리스트, 생중계 채널 정보가 공식 게재되었습니다.',
         date: '2026-09-10 11:00',
         thumbnail: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600&auto=format&fit=crop',
-        originalUrl: 'https://lolesports.com'
+        originalUrl: 'https://lolesports.com/'
       },
       {
         id: 103,
@@ -513,7 +513,7 @@
       window.location.hash = hash;
     }
 
-    /* URL 상태 감지 및 라우팅 */
+    /* URL 라우팅 감지 처리 */
     function handleRouting() {
       const hash = window.location.hash.replace('#', '') || 'home';
       const parts = hash.split('/');
@@ -555,7 +555,7 @@
     window.addEventListener('hashchange', handleRouting);
     window.addEventListener('DOMContentLoaded', handleRouting);
 
-    /* 뉴스 자동 수집 및 UI 렌더링 */
+    /* 뉴스 목록 렌더링 */
     async function fetchGameNews() {
       const grid = document.getElementById('newsGrid');
       if (!grid) return;
@@ -564,7 +564,7 @@
 
       setTimeout(() => {
         renderNews();
-      }, 400);
+      }, 300);
     }
 
     function renderNews() {
@@ -832,7 +832,7 @@
       document.getElementById('detailModal').classList.add('active');
     }
 
-    /* 메인 슬라이더 script */
+    /* 메인 슬라이더 스크립트 */
     let slideIndex = 0;
     const slides = document.querySelectorAll('.slide');
     const dots = document.querySelectorAll('.dot');
