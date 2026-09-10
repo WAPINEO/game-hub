@@ -87,10 +87,10 @@
     .dot { width: 10px; height: 10px; background-color: rgba(255, 255, 255, 0.4); border-radius: 50%; cursor: pointer; }
     .dot.active { background-color: var(--accent-color); width: 24px; border-radius: 5px; }
 
-    /* ==================== 커뮤니티 UI 스타일 ==================== */
+    /* 커뮤니티 UI 스타일 */
     .board-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; gap: 1rem; flex-wrap: wrap; }
-    .board-category-tabs { display: flex; gap: 0.5rem; }
-    .tab-btn { padding: 0.4rem 0.8rem; background-color: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-sub); border-radius: 6px; font-size: 0.85rem; cursor: pointer; }
+    .board-category-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .tab-btn { padding: 0.4rem 0.8rem; background-color: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-sub); border-radius: 6px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
     .tab-btn.active { background-color: var(--accent-color); color: #fff; border-color: var(--accent-color); font-weight: 700; }
     
     .write-btn { padding: 0.5rem 1rem; background-color: var(--accent-color); color: #fff; border: none; border-radius: 6px; font-weight: 700; font-size: 0.85rem; cursor: pointer; }
@@ -106,9 +106,13 @@
     .col-date { width: 100px; color: var(--text-sub); font-size: 0.8rem; }
     .col-views { width: 70px; color: var(--text-sub); text-align: center; }
 
+    /* 카테고리별 태그 색상 정의 */
     .cat-badge { display: inline-block; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; background-color: #2a2a30; color: var(--text-sub); }
     .cat-badge.freeboard { color: #70a1ff; background-color: rgba(112, 161, 255, 0.1); }
     .cat-badge.party { color: var(--accent-green); background-color: rgba(46, 213, 115, 0.1); }
+    .cat-badge.guide { color: #eccc68; background-color: rgba(236, 204, 104, 0.1); }
+    .cat-badge.qna { color: #ff6b81; background-color: rgba(255, 107, 129, 0.1); }
+    .cat-badge.recommend { color: #a29bfe; background-color: rgba(162, 155, 254, 0.1); }
 
     /* 글쓰기 모달 팝업 */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 300; justify-content: center; align-items: center; }
@@ -124,7 +128,7 @@
     textarea.form-control { height: 120px; resize: vertical; }
 
     /* 상세 보기 모달 */
-    .post-detail-body { padding: 1rem 0; min-height: 100px; line-height: 1.6; color: #e0e0e0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); margin: 1rem 0; }
+    .post-detail-body { padding: 1rem 0; min-height: 100px; line-height: 1.6; color: #e0e0e0; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); margin: 1rem 0; white-space: pre-line; }
 
     footer { text-align: center; padding: 2.5rem 1rem; border-top: 1px solid var(--border-color); color: var(--text-sub); font-size: 0.85rem; }
   </style>
@@ -158,10 +162,14 @@
               <li><a onclick="showPage('upcoming', 'trailer')">🎬 트레일러 모음</a></li>
             </ul>
           </li>
+          <!-- 네비게이션 드롭다운 메뉴 카테고리 확장 -->
           <li class="nav-item">
             <a class="nav-link" id="nav-community" onclick="showPage('community')">커뮤니티 ▾</a>
             <ul class="dropdown-menu">
               <li><a onclick="showPage('community', 'freeboard')">💬 자유 게시판</a></li>
+              <li><a onclick="showPage('community', 'guide')">💡 공략 & 팁</a></li>
+              <li><a onclick="showPage('community', 'qna')">❓ 질문 & 답변</a></li>
+              <li><a onclick="showPage('community', 'recommend')">👍 게임 추천</a></li>
               <li><a onclick="showPage('community', 'party')">👥 파티 모집 (LFG)</a></li>
             </ul>
           </li>
@@ -221,17 +229,21 @@
       <div class="section-header"><h2 class="section-title">📅 이달의 출시 예정작</h2></div>
     </div>
 
-    <!-- ==================== 5. 커뮤니티 화면 (구현) ==================== -->
+    <!-- ==================== 5. 커뮤니티 화면 ==================== -->
     <div id="page-community" class="page-view">
       <div class="section-header">
         <h2 class="section-title">💬 게이머 커뮤니티</h2>
       </div>
 
       <div class="board-toolbar">
+        <!-- 확장된 카테고리 탭 -->
         <div class="board-category-tabs">
-          <button class="tab-btn active" onclick="filterBoard('all', this)">전체글</button>
-          <button class="tab-btn" onclick="filterBoard('freeboard', this)">자유 게시판</button>
-          <button class="tab-btn" onclick="filterBoard('party', this)">파티 모집 (LFG)</button>
+          <button class="tab-btn active" id="tab-all" onclick="filterBoard('all', this)">전체</button>
+          <button class="tab-btn" id="tab-freeboard" onclick="filterBoard('freeboard', this)">자유</button>
+          <button class="tab-btn" id="tab-guide" onclick="filterBoard('guide', this)">공략&팁</button>
+          <button class="tab-btn" id="tab-qna" onclick="filterBoard('qna', this)">질문/Q&A</button>
+          <button class="tab-btn" id="tab-recommend" onclick="filterBoard('recommend', this)">게임추천</button>
+          <button class="tab-btn" id="tab-party" onclick="filterBoard('party', this)">파티모집</button>
         </div>
         <button class="write-btn" onclick="openWriteModal()">✏️ 글쓰기</button>
       </div>
@@ -267,6 +279,9 @@
           <label>카테고리</label>
           <select id="postCategory" class="form-control" required>
             <option value="freeboard">자유 게시판</option>
+            <option value="guide">공략 & 팁</option>
+            <option value="qna">질문 & 답변</option>
+            <option value="recommend">게임 추천</option>
             <option value="party">파티 모집 (LFG)</option>
           </select>
         </div>
@@ -314,16 +329,27 @@
   </footer>
 
   <script>
-    /* 초기의 게시글 샘플 데이터 (배열) */
+    /* 카테고리 정보 매핑 정의 */
+    const categoryMap = {
+      freeboard: { name: '자유', class: 'freeboard' },
+      guide: { name: '공략&팁', class: 'guide' },
+      qna: { name: '질문', class: 'qna' },
+      recommend: { name: '추천', class: 'recommend' },
+      party: { name: '파티모집', class: 'party' }
+    };
+
+    /* 샘플 게시글 데이터 (확장된 카테고리 적용) */
     let posts = [
-      { id: 1, category: 'freeboard', title: '스팀 이번 주 할인 목록 어떤가요?', author: '게이머A', date: '2026-09-10', views: 42, content: '생각보다 할인율이 높은 타이틀이 많네요! 다들 이번 할인 때 어떤 게임 사실 건가요?' },
-      { id: 2, category: 'party', title: '발로란트 레디언트 찍으실 분 구합니다 (3/5)', author: 'FPS마스터', date: '2026-09-10', views: 18, content: '마이크 필수, 멘탈 좋으신 분 환영합니다. 주말 오후 라이트하게 달리실 분 댓글 달아주세요!' },
-      { id: 3, category: 'freeboard', title: '에픽 무료배포 꼭 받으세요', author: '겜돌이', date: '2026-09-09', views: 95, content: '이번 무료 배포 게임 평가가 아주 좋습니다. 기간 끝나기 전에 다들 등록해두세요.' }
+      { id: 1, category: 'guide', title: '[공략] 초보자를 위한 초반 필수 설정 및 꿀팁 정리', author: '공략왕', date: '2026-09-10', views: 128, content: '게임 초반 옵션 설정과 효율적인 자원 관리 팁을 정리했습니다.' },
+      { id: 2, category: 'qna', title: '이 사양으로 신작 그래픽 풀옵션 구동 가능한가요?', author: '컴알못', date: '2026-09-10', views: 35, content: 'RTX 4070 사용 중인데 FHD 환경에서 60프레임 방어 되는지 궁금합니다.' },
+      { id: 3, category: 'recommend', title: '주말에 가볍게 즐기기 좋은 힐링 인디게임 3선', author: '인디러버', date: '2026-09-09', views: 89, content: '부담 없이 스토리에 몰입할 수 있는 명작 인디게임들을 추천합니다.' },
+      { id: 4, category: 'party', title: '발로란트 경쟁전 같이 달릴 분 구합니다 (3/5)', author: 'FPS마스터', date: '2026-09-09', views: 54, content: '마이크 필수, 즐겜 유저 분들 편하게 신청해 주세요!' },
+      { id: 5, category: 'freeboard', title: '스팀 이번 주 할인 목록 어떤가요?', author: '게이머A', date: '2026-09-08', views: 62, content: '할인 폭이 커서 이번 기회에 사고 싶은 게임이 많네요.' }
     ];
 
     let currentFilter = 'all';
 
-    /* 페이지 전환 */
+    /* 페이지 전환 및 상단 메뉴 연동 */
     function showPage(pageId, subTarget = null) {
       document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
       const targetPage = document.getElementById('page-' + pageId);
@@ -334,9 +360,9 @@
       if (activeNav) activeNav.classList.add('active');
 
       if (pageId === 'community') {
-        if (subTarget === 'freeboard') filterBoard('freeboard');
-        else if (subTarget === 'party') filterBoard('party');
-        else renderBoard();
+        const targetTab = subTarget || 'all';
+        const btn = document.getElementById('tab-' + targetTab);
+        filterBoard(targetTab, btn);
       }
 
       window.scrollTo(0, 0);
@@ -350,18 +376,17 @@
       const filteredPosts = posts.filter(post => currentFilter === 'all' || post.category === currentFilter);
 
       if (filteredPosts.length === 0) {
-        listContainer.innerHTML = `<tr><td colspan="5" style="text-align:center; color: var(--text-sub); padding: 2rem;">게시글이 없습니다.</td></tr>`;
+        listContainer.innerHTML = `<tr><td colspan="5" style="text-align:center; color: var(--text-sub); padding: 2rem;">등록된 게시글이 없습니다.</td></tr>`;
         return;
       }
 
       filteredPosts.forEach(post => {
-        const catName = post.category === 'freeboard' ? '자유' : '파티모집';
-        const catClass = post.category === 'freeboard' ? 'freeboard' : 'party';
+        const catInfo = categoryMap[post.category] || { name: '기타', class: '' };
 
         const tr = document.createElement('tr');
         tr.onclick = () => openDetailModal(post.id);
         tr.innerHTML = `
-          <td><span class="cat-badge ${catClass}">${catName}</span></td>
+          <td><span class="cat-badge ${catInfo.class}">${catInfo.name}</span></td>
           <td style="font-weight: 600;">${post.title}</td>
           <td class="col-author">${post.author}</td>
           <td class="col-date">${post.date}</td>
@@ -374,14 +399,18 @@
     /* 카테고리 필터링 */
     function filterBoard(cat, btnElement = null) {
       currentFilter = cat;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      
       if (btnElement) {
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         btnElement.classList.add('active');
+      } else {
+        const activeTab = document.getElementById('tab-' + cat);
+        if (activeTab) activeTab.classList.add('active');
       }
       renderBoard();
     }
 
-    /* 글쓰기 모달 열기/닫기 */
+    /* 글쓰기 모달 */
     function openWriteModal() { document.getElementById('writeModal').classList.add('active'); }
     function closeWriteModal() { document.getElementById('writeModal').classList.remove('active'); }
 
@@ -403,11 +432,10 @@
         content
       };
 
-      posts.unshift(newPost); // 새 글을 맨 앞에 추가
-      renderBoard();
+      posts.unshift(newPost);
+      filterBoard(category); // 등록한 카테고리로 이동하여 보여줌
       closeWriteModal();
 
-      // 입력 폼 초기화
       document.getElementById('postTitle').value = '';
       document.getElementById('postContent').value = '';
       alert('게시글이 성공적으로 등록되었습니다!');
@@ -418,11 +446,13 @@
       const post = posts.find(p => p.id === postId);
       if (!post) return;
 
-      post.views += 1; // 조회수 증가
+      post.views += 1;
       renderBoard();
 
-      document.getElementById('detailCategory').textContent = post.category === 'freeboard' ? '자유 게시판' : '파티 모집';
-      document.getElementById('detailCategory').className = `cat-badge ${post.category}`;
+      const catInfo = categoryMap[post.category] || { name: '기타', class: '' };
+
+      document.getElementById('detailCategory').textContent = catInfo.name;
+      document.getElementById('detailCategory').className = `cat-badge ${catInfo.class}`;
       document.getElementById('detailTitle').textContent = post.title;
       document.getElementById('detailAuthor').textContent = '작성자: ' + post.author;
       document.getElementById('detailDate').textContent = '날짜: ' + post.date;
