@@ -99,20 +99,6 @@
     .btn-secondary { padding: 0.5rem 1rem; background-color: transparent; border: 1px solid var(--border-color); color: var(--text-sub); border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
     .btn-secondary:hover { background-color: var(--card-hover); color: var(--text-main); }
 
-    /* 게이밍 뉴스 전용 스타일 */
-    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
-    .news-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, border-color 0.2s; }
-    .news-card:hover { transform: translateY(-3px); border-color: var(--accent-blue); }
-    .news-thumbnail { width: 100%; height: 180px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
-    .news-body { padding: 1.2rem; display: flex; flex-direction: column; flex: 1; }
-    .news-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text-sub); margin-bottom: 0.6rem; }
-    .news-source { color: var(--accent-blue); font-weight: 700; }
-    .news-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; line-height: 1.4; color: var(--text-main); }
-    .news-snippet { font-size: 0.85rem; color: var(--text-sub); line-height: 1.5; margin-bottom: 1rem; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    .news-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 0.8rem; margin-top: auto; }
-    .news-link-btn { font-size: 0.85rem; font-weight: 700; color: var(--accent-color); cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem; }
-    .news-link-btn:hover { text-decoration: underline; }
-
     /* 게시판 테이블 */
     .board-table { width: 100%; border-collapse: collapse; background-color: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); font-size: 0.9rem; }
     .board-table th, .board-table td { padding: 0.8rem 1rem; text-align: left; border-bottom: 1px solid var(--border-color); }
@@ -193,15 +179,6 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="nav-news" onclick="navigateTo('news')">게임뉴스 ▾</a>
-            <ul class="dropdown-menu">
-              <li><a onclick="navigateTo('news', 'all')">📰 전체 뉴스</a></li>
-              <li><a onclick="navigateTo('news', 'patch')">📢 패치노트 & 업데이트</a></li>
-              <li><a onclick="navigateTo('news', 'esports')">🏆 e스포츠 소식</a></li>
-              <li><a onclick="navigateTo('news', 'industry')">💼 업계 소식</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" id="nav-upcoming" onclick="navigateTo('upcoming')">출시예정작 ▾</a>
             <ul class="dropdown-menu">
               <li><a onclick="navigateTo('upcoming', 'monthly')">📅 이달의 출시 예정작</a></li>
@@ -263,28 +240,7 @@
       <p style="color: var(--text-sub);">무료 및 할인 데이터 영역입니다.</p>
     </div>
 
-    <!-- ==================== 3. 실시간 게임뉴스 화면 ==================== -->
-    <div id="page-news" class="page-view">
-      <div class="section-header">
-        <h2 class="section-title">📡 실시간 게임 뉴스</h2>
-        <button class="btn-secondary" onclick="fetchGameNews()" style="font-size: 0.8rem;">🔄 최신 뉴스 새로고침</button>
-      </div>
-
-      <div class="board-toolbar">
-        <div class="board-category-tabs">
-          <button class="tab-btn active" id="tab-news-all" onclick="filterNews('all', this)">전체 뉴스</button>
-          <button class="tab-btn" id="tab-news-patch" onclick="filterNews('patch', this)">📢 패치/업데이트</button>
-          <button class="tab-btn" id="tab-news-esports" onclick="filterNews('esports', this)">🏆 e스포츠</button>
-          <button class="tab-btn" id="tab-news-industry" onclick="filterNews('industry', this)">💼 업계 소식</button>
-        </div>
-      </div>
-
-      <div id="newsGrid" class="news-grid">
-        <!-- 뉴스 데이터 자동 렌더링 영역 -->
-      </div>
-    </div>
-
-    <!-- ==================== 4. 출시예정작 화면 ==================== -->
+    <!-- ==================== 3. 출시예정작 화면 ==================== -->
     <div id="page-upcoming" class="page-view">
       <div class="section-header">
         <h2 class="section-title">📅 이달의 출시 예정작</h2>
@@ -301,7 +257,7 @@
       <div id="upcomingGrid" class="upcoming-grid"></div>
     </div>
 
-    <!-- ==================== 5. 커뮤니티 목록 화면 ==================== -->
+    <!-- ==================== 4. 커뮤니티 목록 화면 ==================== -->
     <div id="page-community" class="page-view">
       <div class="section-header">
         <h2 class="section-title">💬 게이머 커뮤니티</h2>
@@ -333,7 +289,7 @@
       </table>
     </div>
 
-    <!-- ==================== 6. 커뮤니티 글쓰기 ==================== -->
+    <!-- ==================== 5. 커뮤니티 글쓰기 ==================== -->
     <div id="page-community-write" class="page-view">
       <div class="section-header">
         <h2 class="section-title">✏️ 게시글 작성하기</h2>
@@ -469,43 +425,8 @@
       }
     ];
 
-    /* 뉴스 데이터 (URL 텍스트 노출 제거 및 원문 링크 속성 정상화) */
-    let fetchedNews = [
-      {
-        id: 101,
-        category: 'patch',
-        source: '라이엇 게임즈 (Riot Games)',
-        title: '리그 오브 레전드 최신 패치 노터 정보 및 시스템 변경점 안내',
-        snippet: '이번 리그 오브 레전드 공식 패치에서는 주요 챔피언들의 밸런스 조정과 아이템 밸런스 업데이트가 진행됩니다.',
-        date: '2026-09-10 14:20',
-        thumbnail: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop',
-        originalUrl: 'https://www.leagueoflegends.com/ko-kr/news/game-updates/'
-      },
-      {
-        id: 102,
-        category: 'esports',
-        source: 'LoL eSports 공식',
-        title: '2026 리그 오브 레전드 월드 챔피언십 결승전 일정 및 티켓 예매 안내',
-        snippet: '올해 롤드컵 결승전 일정과 참가 팀 리스트, 생중계 채널 정보가 공식 게재되었습니다.',
-        date: '2026-09-10 11:00',
-        thumbnail: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600&auto=format&fit=crop',
-        originalUrl: 'https://lolesports.com/'
-      },
-      {
-        id: 103,
-        category: 'industry',
-        source: '네이버 게임 뉴스',
-        title: '글로벌 게임 시장 최신 동향 및 언리얼 엔진 5 신작 총정리',
-        snippet: '콘솔 및 PC 플랫폼 중심의 AAA급 게임 개발 동향과 차세대 엔진 도입 현황을 살펴봅니다.',
-        date: '2026-09-09 18:45',
-        thumbnail: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600&auto=format&fit=crop',
-        originalUrl: 'https://news.naver.com/section/105'
-      }
-    ];
-
     let currentFilter = 'all';
     let currentPlatform = 'all';
-    let currentNewsCategory = 'all';
 
     function navigateTo(pageId, subTarget = null) {
       let hash = pageId;
@@ -542,9 +463,6 @@
       if (pageId === 'community') {
         const targetTab = subTarget || 'all';
         filterBoard(targetTab, null, false);
-      } else if (pageId === 'news') {
-        const newsTab = subTarget || 'all';
-        filterNews(newsTab);
       } else if (pageId === 'upcoming') {
         renderUpcoming();
       }
@@ -554,61 +472,6 @@
 
     window.addEventListener('hashchange', handleRouting);
     window.addEventListener('DOMContentLoaded', handleRouting);
-
-    /* 뉴스 목록 렌더링 */
-    async function fetchGameNews() {
-      const grid = document.getElementById('newsGrid');
-      if (!grid) return;
-
-      grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-sub);">📡 실시간 뉴스를 불러오는 중입니다...</div>`;
-
-      setTimeout(() => {
-        renderNews();
-      }, 300);
-    }
-
-    function renderNews() {
-      const grid = document.getElementById('newsGrid');
-      if (!grid) return;
-      grid.innerHTML = '';
-
-      const filtered = fetchedNews.filter(n => currentNewsCategory === 'all' || n.category === currentNewsCategory);
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-sub);">해당 카테고리의 뉴스가 없습니다.</div>`;
-        return;
-      }
-
-      filtered.forEach(news => {
-        const card = document.createElement('div');
-        card.className = 'news-card';
-        card.innerHTML = `
-          <img src="${news.thumbnail}" class="news-thumbnail" alt="뉴스 썸네일">
-          <div class="news-body">
-            <div class="news-meta">
-              <span class="news-source">${news.source}</span>
-              <span>${news.date}</span>
-            </div>
-            <div class="news-title">${news.title}</div>
-            <div class="news-snippet">${news.snippet}</div>
-            <div class="news-footer">
-              <a href="${news.originalUrl}" target="_blank" rel="noopener noreferrer" class="news-link-btn">원문 보기 🔗</a>
-            </div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    function filterNews(category, btnElement = null) {
-      currentNewsCategory = category;
-      document.querySelectorAll('#page-news .tab-btn').forEach(btn => btn.classList.remove('active'));
-
-      const activeTab = document.getElementById('tab-news-' + category) || btnElement;
-      if (activeTab) activeTab.classList.add('active');
-
-      fetchGameNews();
-    }
 
     function getYoutubeEmbedUrl(url) {
       if (!url) return null;
