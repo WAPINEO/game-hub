@@ -400,24 +400,25 @@
     ];
 
     /* 자동 등록된 신작 게임 & 공식 트레일러 리스트 */
+   /* 실제 게임 트레일러 URL이 연결된 신작 리스트 */
     const upcomingGames = [
       {
         id: 1,
-        title: '더 블러드 오브 던워커',
-        desc: '14세기 유럽 배경 다크 판타지 오픈월드 RPG. 낮과 밤에 따라 능력이 변하는 뱀파이어 액션.',
+        title: '몬스터 헌터 와일즈',
+        desc: '캡콤의 차세대 몬스터 헌터 시리즈. 새로운 생태계와 역동적인 수냥 액션.',
         date: '2026-09-15',
         platforms: ['PC', 'PS5', 'Xbox'],
         poster: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+        videoUrl: 'https://www.youtube.com/watch?v=jQdFe0Wiugw' // 몬헌 와일즈 공식 트레일러
       },
       {
         id: 2,
-        title: '귀무자: 검의 길',
-        desc: '캡콤의 전설적인 검극 액션 시리즈 부활! 미야모토 무사시의 환마를 베는 반격 및 일섬 스타일 액션.',
+        title: '더 블러드 오브 던워커',
+        desc: '14세기 유럽 배경 다크 판타지 오픈월드 RPG. 낮과 밤에 따라 능력이 변하는 뱀파이어 액션.',
         date: '2026-09-20',
-        platforms: ['PC', 'PS5', 'Xbox', 'Switch'],
+        platforms: ['PC', 'PS5', 'Xbox'],
         poster: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+        videoUrl: 'https://www.youtube.com/watch?v=lkC75FzExf0' // 던워커 스토리 트레일러
       },
       {
         id: 3,
@@ -426,28 +427,18 @@
         date: '2026-09-28',
         platforms: ['PS5'],
         poster: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+        videoUrl: 'https://www.youtube.com/watch?v=gX461wBRQVs' // 마블 울버린 공식 트레일러
       },
       {
         id: 4,
-        title: '컨트롤: 레조넌트',
-        desc: '레메디 엔터테인먼트의 초자연 액션 블록버스터 신작. 확장된 차원과 강력한 능력 연계.',
-        date: '2026-10-12',
-        platforms: ['PC', 'PS5', 'Xbox'],
-        poster: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-      },
-      {
-        id: 5,
         title: 'Grand Theft Auto VI (GTA 6)',
         desc: '락스타 게임즈가 선보이는 역대 최대 규모 오픈월드 차기작. 바이스 시티 기반 신작.',
         date: '2026-11-19',
         platforms: ['PS5', 'Xbox'],
         poster: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop',
-        videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+        videoUrl: 'https://www.youtube.com/watch?v=XAgXfddQSwY' // GTA6 공식 트레일러
       }
     ];
-
     let currentFilter = 'all';
     let currentPlatform = 'all';
 
