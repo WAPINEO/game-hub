@@ -152,7 +152,7 @@
     .card-btn:hover { background-color: var(--card-hover); border-color: var(--accent-color); }
     .card-btn.primary-btn { background-color: var(--accent-color); border-color: var(--accent-color); color: #fff; }
 
-    /* 상세 보기 및 트레일러 모달 */
+    /* 상세 보기 모달 */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 300; justify-content: center; align-items: center; }
     .modal-overlay.active { display: flex; }
     .modal-box { background-color: var(--card-bg); border: 1px solid var(--border-color); width: 100%; max-width: 680px; border-radius: 10px; padding: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.5); max-height: 90vh; overflow-y: auto; }
@@ -188,7 +188,7 @@
             <a class="nav-link" id="nav-upcoming" onclick="navigateTo('upcoming')">출시예정작 ▾</a>
             <ul class="dropdown-menu">
               <li><a onclick="navigateTo('upcoming', 'monthly')">📅 이달의 출시 예정작</a></li>
-              <li><a onclick="navigateTo('upcoming', 'trailer')">🎬 트레일러 모음</a></li>
+              <!-- 추후 필요한 하위 메뉴를 여기에 추가하시면 됩니다 -->
             </ul>
           </li>
           <li class="nav-item">
@@ -256,7 +256,7 @@
     <!-- ==================== 4. 출시예정작 화면 ==================== -->
     <div id="page-upcoming" class="page-view">
       <div class="section-header">
-        <h2 class="section-title" id="upcomingHeaderTitle">📅 이달의 출시 예정작</h2>
+        <h2 class="section-title">📅 이달의 출시 예정작</h2>
       </div>
       <div class="board-toolbar">
         <div class="board-category-tabs">
@@ -354,7 +354,7 @@
 
   </div>
 
-  <!-- 상세 보기 및 트레일러 모달 -->
+  <!-- 상세 보기 모달 -->
   <div class="modal-overlay" id="detailModal">
     <div class="modal-box">
       <div class="modal-header">
@@ -399,7 +399,6 @@
       { id: 4, category: 'party', title: '발로란트 경쟁전 같이 달릴 분 구합니다 (3/5)', author: 'FPS마스터', date: '2026-09-09', views: 54, content: '마이크 필수, 즐겜 유저 분들 편하게 신청해 주세요!', videoUrl: '', images: [] }
     ];
 
-    /* 실제 게임 트레일러 URL이 매핑된 신작 리스트 */
     const upcomingGames = [
       {
         id: 1,
@@ -481,20 +480,6 @@
         filterBoard(targetTab, btn);
       } else if (pageId === 'upcoming') {
         renderUpcoming();
-        const headerTitle = document.getElementById('upcomingHeaderTitle');
-
-        if (subTarget === 'trailer') {
-          if (headerTitle) headerTitle.textContent = '🎬 이달의 신작 트레일러 모음';
-          
-          // 첫 번째 신작 트레일러 모달 오픈
-          if (upcomingGames.length > 0) {
-            playTrailer(upcomingGames[0].videoUrl, upcomingGames[0].title);
-          }
-          // F5 새로고침 시 모달 재실행 방지를 위한 주소 정리
-          history.replaceState(null, '', '#upcoming');
-        } else {
-          if (headerTitle) headerTitle.textContent = '📅 이달의 출시 예정작';
-        }
       }
 
       window.scrollTo(0, 0);
@@ -703,7 +688,6 @@
       renderUpcoming();
     }
 
-    /* 트레일러 팝업 호출 (자동 재생 OFF 설정) */
     function playTrailer(url, title = '게임 트레일러') {
       const embedUrl = getYoutubeEmbedUrl(url);
       if (!embedUrl) return;
@@ -716,7 +700,6 @@
       document.getElementById('detailViews').textContent = '';
       document.getElementById('detailContent').textContent = '';
 
-      // autoplay 옵션 제거 (클릭해야 재생됨)
       const mediaContainer = document.getElementById('detailMedia');
       mediaContainer.innerHTML = `<div class="video-container"><iframe src="${embedUrl}" allowfullscreen></iframe></div>`;
 
